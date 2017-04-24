@@ -9,13 +9,18 @@ import java.util.*;
 public class Player implements Serializable {
     private String pseudonyme;
     private int meilleureScore;
-    private ArrayList<Integer> scores;
-    private int scoreActuel;
+    private transient ArrayList<Integer> scores;
+    private transient int scoreActuel;
 
-    public Player(String pseudonyme, int meilleureScore, Set<Integer> scores, int scoreActuel) {
+    public Player(String pseudonyme) {
         this.pseudonyme = pseudonyme;
         this.meilleureScore = 0;
-        this.scores = new ArrayList<>() ;}}
+        this.scores = new ArrayList<>() ;
+    }
+
+    public String getPseudonyme() {
+        return pseudonyme;
+    }
 
     public Player() {
     }
