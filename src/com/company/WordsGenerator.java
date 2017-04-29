@@ -3,16 +3,23 @@ package com.company;
 import jdk.internal.util.xml.impl.ReaderUTF8;
 
 import java.io.*;
-import java.util.HashSet;
-import java.util.StringTokenizer;
+import java.util.*;
+
+import static java.lang.Math.abs;
 
 /**
  * Created by Amine on 17/04/2017.
  */
 public class WordsGenerator {
 
-    private HashSet<Mot> mots = new HashSet<>();
-    public void readWordsFile() throws IOException {
+
+    private ArrayList<Mot> mots = new ArrayList<>();
+    private HashSet<Mot> motsSeance =  new HashSet<>();
+    private final int NB_MOTS_SEANCE = 10;
+    /*
+    * Récupérer la liste de touts les mots à partir du fichier
+     */
+    private void readWordsFile() throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new FileReader("mots.poo"));
         String ligne = bufferedReader.readLine();
         while (ligne != null){
@@ -35,7 +42,23 @@ public class WordsGenerator {
         }
     }
 
-    public HashSet<Mot> getMots() {
-        return mots;
+    /*
+    * Génrer une liste de dix mots choisis aléatoirement à partire du fichier
+     */
+    public void genererListeMotsSeance() throws IOException {
+        readWordsFile();
+        motsSeance = new HashSet<>();
+        Random random = new Random();
+        while (motsSeance.size()<NB_MOTS_SEANCE){
+            int a = abs(random.nextInt());
+            int b = mots.size();
+            int i = a%b;
+            motsSeance.add(mots.get(i));
+        }
+    }
+
+
+    public HashSet<Mot> getMotsSeance() {
+        return motsSeance;
     }
 }

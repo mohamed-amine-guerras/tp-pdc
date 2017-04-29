@@ -60,7 +60,7 @@ public class Mot {
                     if (nbCasesSanctionnabl == NB_CASES_SANCTION) motSanctionnabl = true;
                     break;
                 case 1 :
-                  if(nbCasesLimite <= NB_CASES_LIMITES){
+                  if(nbCasesLimite < NB_CASES_LIMITES){
                       cas = new Proposition(lettre[i]);
                       ensemblesCases.add(cas);
                       nbCasesLimite++;
@@ -72,7 +72,7 @@ public class Mot {
 
                   break;
                 case 2 :
-                    if(nbCasesLimite <= NB_CASES_LIMITES){
+                    if(nbCasesLimite < NB_CASES_LIMITES){
                         cas = new ZeroChance(lettre[i]);
                         i++;
                         nbCasesLimite++;
@@ -82,10 +82,9 @@ public class Mot {
         }
         if (i == lettre.length) finished = true;
     }
-        for (Case casee : this.ensemblesCases){
-            System.out.println(casee);
-        }
     }
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -104,6 +103,6 @@ public class Mot {
 
     @Override
     public String toString() {
-        return valeur ;
+        return valeur  ;
     }
 }

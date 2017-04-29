@@ -8,11 +8,11 @@ public class Main {
 	// write your code here
         WordsGenerator wordsGenerator = new WordsGenerator();
         try {
-            wordsGenerator.readWordsFile();
+            wordsGenerator.genererListeMotsSeance();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        for(Mot mot : wordsGenerator.getMots()){
+        for(Mot mot : wordsGenerator.getMotsSeance()){
             System.out.println(mot);
             mot.genererCases();
         }
