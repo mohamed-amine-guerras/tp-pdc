@@ -1,6 +1,4 @@
-package com.company;
-
-import org.omg.CORBA.Object;
+package com.company.model;
 
 import java.io.*;
 

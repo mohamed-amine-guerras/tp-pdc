@@ -1,8 +1,7 @@
-package com.company;
+package com.company.model;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.TreeSet;
 
 /**
  * Created by Amine on 17/04/2017.
