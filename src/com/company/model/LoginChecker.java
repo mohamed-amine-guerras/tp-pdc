@@ -14,12 +14,18 @@ public class LoginChecker {
     public LoginChecker(String usersFile) {
         this.usersFile = usersFile;
     }
+    /**
+     * Cette méthode vérifie si un joueur existe ou pas dans le fichier des joueurs
+     * **/
     public boolean Find(String pseudonyme) throws IOException, ClassNotFoundException {
 
         InitializeUsersHashMap();
 
         return usersHashMap.containsKey(pseudonyme);
     }
+    /**
+     * Cette méthode initialise la HashMap qui contient les joueurs à partir du fichier des joueurs
+     * **/
     private void InitializeUsersHashMap()  {
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream(new BufferedInputStream(new FileInputStream(new File(usersFile))));
@@ -28,6 +34,9 @@ public class LoginChecker {
             usersHashMap = null;
         }
     }
+    /**
+    * *Cette méthode ajoute un joueur au fichier des joueurs
+     * */
     public void Addpseudonyme(String pseudonyme) throws IOException, ClassNotFoundException {
         Player player = new Player(pseudonyme);
         InitializeUsersHashMap();
