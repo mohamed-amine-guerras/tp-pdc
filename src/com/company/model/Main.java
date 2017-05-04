@@ -8,8 +8,10 @@ public class Main {
 
         LoginChecker loginChecker = new LoginChecker("users.dat");
         try {
-            System.out.println(loginChecker.Find("raouf"));
+            System.out.println(loginChecker.Find("Amine"));
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 

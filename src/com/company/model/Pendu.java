@@ -15,7 +15,7 @@ public class Pendu {
         UsersFilePath = usersFilePath;
     }
 
-    public void LoginCheck(String pseudonyme) throws LoginNotFoundException, IOException {
+    public void LoginCheck(String pseudonyme) throws LoginNotFoundException, IOException, ClassNotFoundException {
         LoginChecker loginChecker = new LoginChecker(UsersFilePath);
         if (!loginChecker.Find(pseudonyme)) throw new LoginNotFoundException("Ce pseudonyme n'existent pas");
     }
@@ -33,7 +33,7 @@ public class Pendu {
     public void EndSession(){
         sessionTerminee = true;
     }
-    public void AddPseudonyme(String pseudonyme) throws IOException {
+    public void AddPseudonyme(String pseudonyme) throws IOException, ClassNotFoundException {
        new LoginChecker(UsersFilePath).Addpseudonyme(pseudonyme);
     }
 }

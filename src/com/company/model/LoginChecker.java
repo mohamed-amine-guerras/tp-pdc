@@ -13,44 +13,38 @@ public class LoginChecker {
 
     public LoginChecker(String usersFile) {
         this.usersFile = usersFile;
-        usersHashMap = new HashMap<>();
     }
-    public boolean Find(String pseudonyme) throws IOException {
+    public boolean Find(String pseudonyme) throws IOException, ClassNotFoundException {
 
         InitializeUsersHashMap();
 
         return usersHashMap.containsKey(pseudonyme);
     }
-    private void InitializeUsersHashMap() throws FileNotFoundException {
-        ObjectInputStream objectInputStream = null;
+    private void InitializeUsersHashMap()  {
         try {
-            objectInputStream = new ObjectInputStream(new BufferedInputStream(new FileInputStream(new File(usersFile))));
-            Player player ;
-            boolean exist = true;
-            while (exist){
-                player = (Player) objectInputStream.readObject();
-                usersHashMap.put(player.getPseudonyme(),player);
-            }
-
-        }
-        catch (IOException e) {
-        } catch (ClassNotFoundException e) {
+            ObjectInputStream objectInputStream = new ObjectInputStream(new BufferedInputStream(new FileInputStream(new File(usersFile))));
+            usersHashMap = (HashMap<String, Player>) objectInputStream.readObject();
+        } catch (ClassNotFoundException | IOException e) {
+            usersHashMap = null;
         }
     }
-    public void Addpseudonyme(String pseudonyme) throws IOException {
+    public void Addpseudonyme(String pseudonyme) throws IOException, ClassNotFoundException {
         Player player = new Player(pseudonyme);
         InitializeUsersHashMap();
-        if (!usersHashMap.containsKey(pseudonyme)){
-            usersHashMap.put(player.getPseudonyme(),player);
+        if (usersHashMap == null) {
+            usersHashMap = new HashMap<>();
+        }
+        if (!usersHashMap.containsKey(pseudonyme)) {
+            usersHashMap.put(player.getPseudonyme(), player);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File(usersFile))));
-            for (HashMap.Entry e: usersHashMap.entrySet()) {
-                objectOutputStream.writeObject(e.getValue());
-
-            }
-
+            objectOutputStream.writeObject(usersHashMap);
             objectOutputStream.close();
+            }
         }
 
-    }
 
-}
+
+        }
+
+
+
