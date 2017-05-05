@@ -36,10 +36,16 @@ public class MultiChance extends Case implements Sanctionnable {
             setSuceces(true);
         }else if(nbTentativesRestant == 0){
             setFail(true);
+            this.malus = this.malus + this.MALUS;
         }else{
             this.malus = this.malus + this.MALUS;
         }
         System.out.println(isSuceces());
         return isFail();
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + " : multichance";
     }
 }

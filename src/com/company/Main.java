@@ -1,5 +1,6 @@
 package com.company;
 
+import com.company.cases.Case;
 import com.company.mots.Mot;
 import com.company.mots.WordsGenerator;
 
@@ -18,7 +19,8 @@ public class Main {
         }
 
         for (Mot mot : wordsGenerator.getMotsSeance()){
-            System.out.println(mot);
+            for(Case box : mot.getEnsemblesCases()) System.out.println(box);
+            System.out.println(mot.getEnsemblesCases().size());
             boolean stop =false;
             while (!mot.isMotTermine() && !stop){
                 Scanner scanner = new Scanner(System.in);

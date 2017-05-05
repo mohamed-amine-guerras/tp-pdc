@@ -20,4 +20,9 @@ public class ZeroChance extends Case {
         System.out.println(isSuceces());
         return isFail();
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " : zerochance";
+    }
 }

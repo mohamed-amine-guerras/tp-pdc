@@ -24,6 +24,7 @@ public class Mot {
     private int score = 0;
     private boolean motTermine;
     private boolean motSanctionnabl;
+    private int nbSuccess;
 
     public Mot(Indication indication, String valeur) {
         this.indication = indication;
@@ -36,6 +37,10 @@ public class Mot {
 
     public int getScore() {
         return score;
+    }
+
+    public ArrayList<Case> getEnsemblesCases() {
+        return ensemblesCases;
     }
 
     /*
@@ -101,11 +106,11 @@ public class Mot {
 
     public boolean Verrifier(int index, char c){
         boolean stop = false;
-        int nbSuccess = 0;
         Case box = ensemblesCases.get(index);
         box.tentative(c);
         stop = ensemblesCases.get(index).isFail();
         if(box.isSuceces()) nbSuccess++;
+        System.out.println("nbSuccess = "+nbSuccess);
         if(nbSuccess == ensemblesCases.size()) motTermine = true;
 
         return stop;

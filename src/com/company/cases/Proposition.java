@@ -47,4 +47,9 @@ public class Proposition extends Case implements Sanctionnable
         if(motSenctionnabl) return malus;
         else return 0;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + ": propsiotion";
+    }
 }
