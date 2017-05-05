@@ -1,9 +1,11 @@
-package com.company;
+package com.company.cases;
+
+import com.company.Sanctionnable;
 
 /**
  * Created by Amine on 17/04/2017.
  */
-public class MultiChance extends Case implements Sanctionnable{
+public class MultiChance extends Case implements Sanctionnable {
 
     private int nbTentativesRestant;
     private final int NB_MAX_TENTATIVE = 2;
@@ -28,15 +30,16 @@ public class MultiChance extends Case implements Sanctionnable{
 
     @Override
     public boolean tentative(char lettre) {
-        boolean stop = false;
         nbTentativesRestant--;
         if(lettre == getValeur()){
             setScore(BONUS);
+            setSuceces(true);
         }else if(nbTentativesRestant == 0){
-            stop = true;
+            setFail(true);
         }else{
             this.malus = this.malus + this.MALUS;
         }
-        return stop;
+        System.out.println(isSuceces());
+        return isFail();
     }
 }

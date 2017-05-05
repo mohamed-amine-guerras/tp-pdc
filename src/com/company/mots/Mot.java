@@ -1,4 +1,10 @@
-package com.company;
+package com.company.mots;
+
+import com.company.Sanctionnable;
+import com.company.cases.Case;
+import com.company.cases.MultiChance;
+import com.company.cases.Proposition;
+import com.company.cases.ZeroChance;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -15,7 +21,7 @@ public class Mot {
     private String valeur;
     private ArrayList<Case> ensemblesCases = new ArrayList<>();
     private ArrayList<Sanctionnable> ensmblesCasesSanctionnables = new ArrayList<>();
-    private int score;
+    private int score = 0;
     private boolean motTermine;
     private boolean motSanctionnabl;
 
@@ -23,6 +29,15 @@ public class Mot {
         this.indication = indication;
         this.valeur = valeur;
     }
+
+    public boolean isMotTermine() {
+        return motTermine;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
     /*
      *Calcule le score obtenu par l'ensemble de tentative sur les cases
      */
@@ -31,7 +46,7 @@ public class Mot {
         for(Case cas : ensemblesCases){
             this.score = this.score + cas.getScore();
         }
-        this.score = indication.getCoefition();
+        this.score = this.score* indication.getCoefition();
         for(Sanctionnable  caseSanctionnable : this.ensmblesCasesSanctionnables){
             this.score = this.score - caseSanctionnable.getMalus(this.motSanctionnabl);
         }
@@ -84,6 +99,17 @@ public class Mot {
     }
     }
 
+    public boolean Verrifier(int index, char c){
+        boolean stop = false;
+        int nbSuccess = 0;
+        Case box = ensemblesCases.get(index);
+        box.tentative(c);
+        stop = ensemblesCases.get(index).isFail();
+        if(box.isSuceces()) nbSuccess++;
+        if(nbSuccess == ensemblesCases.size()) motTermine = true;
+
+        return stop;
+    }
 
 
     @Override

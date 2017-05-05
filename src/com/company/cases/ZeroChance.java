@@ -1,4 +1,4 @@
-package com.company;
+package com.company.cases;
 
 /**
  * Created by Amine on 17/04/2017.
@@ -14,8 +14,10 @@ public class ZeroChance extends Case {
     public boolean tentative(char lettre) {
         if(lettre == getValeur()){
             setScore(BONUS);
-            return false;
+            setSuceces(true);
         }
-        else return true;
+        else setFail(true);
+        System.out.println(isSuceces());
+        return isFail();
     }
 }

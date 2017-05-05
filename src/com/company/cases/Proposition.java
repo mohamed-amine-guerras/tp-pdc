@@ -1,4 +1,6 @@
-package com.company;
+package com.company.cases;
+
+import com.company.Sanctionnable;
 
 /**
  * Created by Amine on 17/04/2017.
@@ -30,12 +32,14 @@ public class Proposition extends Case implements Sanctionnable
     public boolean tentative(char lettre) {
         if(lettre == getValeur()){
             setScore(BONUS);
-            return false;
+            setSuceces(true);
         }
         else {
             this.malus = this.MALUS;
-            return true;
+            setFail(true);
         }
+        System.out.println(isSuceces());
+        return isFail();
     }
 
     @Override

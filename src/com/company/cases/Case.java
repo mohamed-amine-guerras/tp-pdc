@@ -1,4 +1,4 @@
-package com.company;
+package com.company.cases;
 
 /**
  * Created by Amine on 17/04/2017.
@@ -6,7 +6,9 @@ package com.company;
 public abstract class Case {
 
     private char valeur;
-    private int score;
+    private int score = 0;
+    private boolean suceces = false;
+    private boolean fail = false;
 
     public Case(char valeur) {
         this.valeur = valeur;
@@ -19,6 +21,22 @@ public abstract class Case {
 
     public int getScore() {
         return score;
+    }
+
+    void setSuceces(boolean suceces) {
+        this.suceces = suceces;
+    }
+
+     void setFail(boolean fail) {
+        this.fail = fail;
+    }
+
+    public boolean isSuceces() {
+        return suceces;
+    }
+
+    public boolean isFail() {
+        return fail;
     }
 
     protected void setScore(int score){this.score = score;}

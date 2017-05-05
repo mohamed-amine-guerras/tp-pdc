@@ -1,6 +1,4 @@
-package com.company;
-
-import jdk.internal.util.xml.impl.ReaderUTF8;
+package com.company.mots;
 
 import java.io.*;
 import java.util.*;
@@ -37,6 +35,7 @@ public class WordsGenerator {
             }
 
             Mot mot = new Mot(ind,reponse);
+            mot.genererCases();
             this.mots.add(mot);
             ligne = bufferedReader.readLine();
         }
