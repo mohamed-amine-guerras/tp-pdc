@@ -30,9 +30,7 @@ public class MainApp extends Application {
 
         JFXDecorator decorator = new JFXDecorator(primaryStage,home);
         primaryStage.setTitle("Le Pendu");
-        primaryStage.setScene(new Scene(decorator, 506, 455));
-        primaryStage.setMaxWidth(506);
-        primaryStage.setMaxHeight(455);
+        primaryStage.setScene(new Scene(decorator, 600, 500));
         primary = primaryStage;
         primaryStage.show();
 

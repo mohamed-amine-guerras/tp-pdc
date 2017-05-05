@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -21,13 +22,17 @@ import static gui.MainApp.NEW_SESSION;
 public class HomeController implements Controller {
     private static String usersFilePath = "users.dat";
     private Pendu pendu = new Pendu(usersFilePath);
-    private Stage primaryStage;
+
 
     public static void setUsersFilePath(String usersFilePath) {
         HomeController.usersFilePath = usersFilePath;
     }
 
     private MainApp mainApp ;
+
+    @FXML
+    private GridPane gridPane;
+
 
     @FXML
     private VBox container;
@@ -54,11 +59,7 @@ public class HomeController implements Controller {
         try {
             Parent login = loader.load();
             ((Controller) loader.getController()).setMainApp(mainApp);
-            Scene primaryScene =  newSessionButton.getScene();
-            primaryStage = (Stage) newSessionButton.getScene().getWindow();
-            Stage stage = new Stage();
-            JFXDecorator decorator = new JFXDecorator(stage,login);
-            primaryStage.setScene(new Scene(decorator, 506, 455));
+            gridPane.add(login,0,1);
         } catch (IOException e) {
             e.printStackTrace();
         }
