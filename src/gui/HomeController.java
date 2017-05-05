@@ -59,6 +59,7 @@ public class HomeController implements Controller {
         try {
             Parent login = loader.load();
             ((Controller) loader.getController()).setMainApp(mainApp);
+            ((UserLoginController) loader.getController()).setPendu(pendu);
             gridPane.add(login,0,1);
         } catch (IOException e) {
             e.printStackTrace();

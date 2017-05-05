@@ -1,5 +1,7 @@
 package gui;
 
+import com.company.model.LoginNotFoundException;
+import com.company.model.Pendu;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXTextField;
@@ -11,12 +13,19 @@ import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 
+import static gui.MainApp.CONFIRMATION_DIALOG_BOX;
+
 
 /**
  * Created by Amine on 04/05/2017.
  */
 public class UserLoginController implements Controller {
     private MainApp mainApp;
+    private Pendu pendu;
+
+    public void setPendu(Pendu pendu) {
+        this.pendu = pendu;
+    }
 
     @FXML
     private StackPane rootStackPane;
@@ -41,31 +50,41 @@ public class UserLoginController implements Controller {
 
     @FXML
     void onConnectButton(ActionEvent event) {
-        String username = userField.getText();
-        if (username == null || username.isEmpty()){
-            JFXDialog dialog = new JFXDialog();
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/resources/fxml/ConfirmationDialogBox.fxml"));
-            Region region = null;
-            try {
-                region = loader.load();
-                ((ConfirmationDialogBoxController) loader.getController()).setDialog("Erreur",
-                        "Veuillez introduire votre pseudonyme!");
-                ((ConfirmationDialogBoxController) loader.getController()).setDialog(dialog);
-                dialog.setContent(region);
-                dialog.show(rootStackPane);
-            } catch(IOException e) {
-                e.printStackTrace();
-            }
-
+        String pseudonyme = userField.getText();
+        if (pseudonyme == null || pseudonyme.isEmpty()){
+           showDialogBox("ERREUR","Veuillez introduire votre pseudonyme!");
 
         }
         else {
+            try {
+                boolean exist = pendu.LoginCheck(pseudonyme);
+            } catch (LoginNotFoundException e) {
+                showDialogBox("ERREUR","Pseudonyme inexistant!");
+
+            } catch (IOException | ClassNotFoundException e) {
+                showDialogBox("ERREUR","Erreur lors de la lecture du fichier des pseudonymes");
+            }
 
         }
 
     }
 
+    public void showDialogBox(String title,String content){
+        JFXDialog dialog = new JFXDialog();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(CONFIRMATION_DIALOG_BOX));
+        Region region = null;
+        try {
+            region = loader.load();
+            ((ConfirmationDialogBoxController) loader.getController()).setDialog(title,
+                    content);
+            ((ConfirmationDialogBoxController) loader.getController()).setDialog(dialog);
+            dialog.setContent(region);
+            dialog.show(rootStackPane);
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void cancel() {

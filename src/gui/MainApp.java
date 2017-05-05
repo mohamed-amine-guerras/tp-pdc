@@ -15,6 +15,7 @@ public class MainApp extends Application {
 
     private static String Home = "/resources/fxml/Home.fxml";
     static final String NEW_SESSION = "/resources/fxml/UserLoginView.fxml";
+    static final String CONFIRMATION_DIALOG_BOX = "/resources/fxml/ConfirmationDialogBox.fxml";
     private Stage primary;
     public static void main(String[] args) {
         launch(args);
