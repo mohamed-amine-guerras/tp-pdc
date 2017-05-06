@@ -1,8 +1,8 @@
 package com.company;
 
-import com.company.cases.Case;
-import com.company.mots.Mot;
-import com.company.mots.WordsGenerator;
+import com.company.model.mots.cases.Case;
+import com.company.model.mots.Mot;
+import com.company.model.mots.WordsGenerator;
 
 import java.io.IOException;
 import java.util.Scanner;

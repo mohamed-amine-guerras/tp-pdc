@@ -1,0 +1,227 @@
+
+.jfx-hamburger {
+  -fx-spacing: 7;
+  -fx-cursor: hand;
+}
+
+/* Background colors */
+
+#top-bar {
+    -fx-font-size: 17;
+    -fx-background-color: #00897B;
+}
+#left-drawer {
+    -fx-background-color: #37474F;
+}
+#back-pane {
+  -fx-background-color: #2d4789
+}
+#dash-container {
+  -fx-background-color: #2d4789;
+}
+#user-pane {
+    -fx-background-color: #26A69A;
+    -fx-font-size: 14;
+}
+#user-pane #type-label {
+    -fx-font-family: "Open Sans Regular";
+}
+.jfx-text-area {
+  -jfx-focus-color: #26A69A;
+  -fx-text-fill: white;
+}
+.scroll-pane {
+  /* -fx-background: #263238; */
+  -fx-background-color: #263238;
+}
+.scroll-pane > .viewport {
+   -fx-background-color: #263238;
+}
+.tree-cell {
+  -fx-background-color: #263238;
+  -fx-font-family: "Open Sans Semibold";
+  -fx-text-fill: white;
+}
+.tree-cell > .tree-disclosure-node > .arrow  {
+    -fx-background-color: #26A69A;
+}
+.tree-cell:expanded > .tree-disclosure-node > .arrow {
+    -fx-background-color: white;
+}
+#b-chart {
+
+}
+#course-pane {
+  -fx-background-color: #263238;
+}
+/* Label styles */
+
+.label {
+    -fx-text-fill: white;
+    -fx-font-family: "Open Sans Semibold";
+}
+#green-heading-text {
+  -fx-padding: 7;
+}
+#unavailable {
+  -fx-text-fill: #90A4AE;
+}
+#green-button {
+  -fx-text-fill: #00897B;
+}
+#statlabels {
+  -fx-font-family: "Open Sans Extrabold";
+}
+#bold-label {
+  -fx-font-family: "Open Sans Extrabold";
+  -fx-text-fill: black;
+}
+#black-thin-label {
+  -fx-font-family: "Open Sans Semibold";
+  -fx-text-fill: black;
+}
+#recent-files-list .list-cell:even {
+  -fx-background-color: #00897B;
+}
+#recent-files-list .list-cell:odd {
+  -fx-background-color: #26A69A;
+}
+
+/* Button styles and graphics */
+
+.jfx-button {
+
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "Open Sans Semibold";
+    -fx-padding: 15px;
+    -fx-border-width: 2px;
+}
+#centered-button {
+  -fx-alignement: CENTER;
+}
+#home-button {
+  -fx-graphic: url("../img/home_u.png");
+}
+#home-button-selected {
+  -fx-graphic: url("../img/home_s.png");
+  -fx-background-color: #263238;
+}
+#convert-button {
+  -fx-graphic: url("../img/arrow_u.png");
+}
+#convert-button-selected {
+  -fx-graphic: url("../img/arrow_s.png");
+  -fx-background-color: #263238;
+}
+#mail-button {
+  -fx-graphic: url("../img/mail_u.png");
+}
+#mail-button-selected {
+  -fx-graphic: url("../img/mail_s.png");
+  -fx-background-color: #263238;
+}
+#stat-button {
+  -fx-graphic: url("../img/stats_u.png");
+}
+#stat-button-selected {
+  -fx-graphic: url("../img/stats_s.png");
+  -fx-background-color: #263238;
+}
+#duplicates-button {
+  -fx-graphic: url("../img/documents_u.png");
+}
+#duplicates-button-selected {
+  -fx-graphic: url("../img/documents_s.png");
+  -fx-background-color: #263238;
+}
+#lessons-button {
+  -fx-graphic: url("../img/hat_u.png");
+}
+#lessons-button-selected {
+  -fx-graphic: url("../img/hat_s.png");
+  -fx-background-color: #263238;
+}
+#delete-button {
+  -fx-graphic: url("../img/delete.png");
+}
+#add-button {
+  -fx-graphic: url("../img/add.png");
+}
+
+/* Control styles */
+
+#line {
+  -fx-stroke: #00897B;
+  -fx-stroke-width: 2;
+  -fx-padding: 2;
+}
+#recent-files-list {
+  -fx-background-color: #263238;
+}
+#statistics {
+  -fx-padding: 10;
+}
+.jfx-radio-button {
+  -fx-text-fill: #B0BEC5;
+  -jfx-selected-color: #00897B;
+  -jfx-unselected-color: #00897B;
+}
+#level-list {
+  -fx-background-color: #263238;
+}
+#level-list .list-cell {
+  -fx-background-color: #263238;
+}
+.jfx-text-field {
+  -fx-text-fill: white;
+}
+.jfx-password-field {
+  -fx-text-fill: white;
+  -jfx-focus-color: #26A696
+}
+#level-list .list-cell:selected {
+  -fx-background-color: #26A696;
+}
+#user-radio {
+  -fx-text-fill: black;
+}
+
+/* More button styles */
+
+#file-button {
+  -fx-graphic: url("../img/arrow_s.png");
+}
+#form-button {
+  -fx-text-fill: #26A696;
+}
+#form-button {
+  -fx-alignement: TOP;
+}
+.selected-button {
+  -fx-text-fill: white;
+  -fx-background-color: #263238;
+}
+#green-confirm-button {
+  -fx-graphic: url("../img/check.png");
+}
+#green-light-confirm-button {
+  -fx-graphic: url("../img/check.png");
+  -fx-text-fill: black;
+}
+#dark-field {
+  -fx-text-fill: black;
+}
+
+/* Textfield and cbox styles */
+
+.jfx-text-field {
+  -jfx-focus-color: #26A696;
+}
+.jfx-combo-box {
+  -fx-text-fill: #26A696;
+  -jfx-focus-color: #26A696;
+}
+.jfx-combo-box .cell {
+  -fx-background-color: #263238;
+  -fx-text-fill: #EEEEEE;
+}
