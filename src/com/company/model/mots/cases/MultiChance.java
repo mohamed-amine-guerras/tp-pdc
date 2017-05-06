@@ -33,6 +33,7 @@ public class MultiChance extends Case implements Sanctionnable {
         if(lettre == getValeur()){
             setScore(BONUS);
             setSuceces(true);
+            setFail(false);
         }else if(nbTentativesRestant == 0){
             setFail(true);
             this.malus = this.malus + this.MALUS;

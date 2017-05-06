@@ -15,6 +15,7 @@ public class ZeroChance extends Case {
         if(lettre == getValeur()){
             setScore(BONUS);
             setSuceces(true);
+            setFail(false);
         }
         else setFail(true);
         System.out.println(isSuceces());

@@ -43,14 +43,9 @@ public class Mot {
      *Calcule le score obtenu par l'ensemble de tentative sur les cases
      */
 
-    public void calculerScore(){
-        for(Case cas : ensemblesCases){
-            this.score = this.score + cas.getScore();
-        }
-        this.score = this.score* indication.getCoefition();
-        for(Sanctionnable  caseSanctionnable : this.ensmblesCasesSanctionnables){
-            this.score = this.score - caseSanctionnable.getMalus(this.motSanctionnabl);
-        }
+    public void updateScore(Case box){
+        this.score = this.score + indication.getCoefition()*box.getScore();
+        if(ensmblesCasesSanctionnables.contains(box) && box.isFail()) this.score = this.score - ((Sanctionnable)box).getMalus(motSanctionnabl);
     }
     /*
     * Générer les cases formant les mots et met à jours l'attribut motSanctionnabl si nécessaire
@@ -111,7 +106,8 @@ public class Mot {
             motTerminee = true; // donc le mot est terminé
             stop = true; // le joueur ne peut pas continuer
         }
-
+        updateScore(box);
+        System.out.println(this.score);
         return stop;
     }
 

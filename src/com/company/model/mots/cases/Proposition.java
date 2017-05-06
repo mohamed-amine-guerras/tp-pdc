@@ -9,7 +9,7 @@ public class Proposition extends Case implements Sanctionnable
 
     private char[] proposition;
     private final int NB_MAX_PROPSOTION = 4;
-    private final int BONUS = 1;
+    private final int BONUS = 2;
     private final  int MALUS = 1;
     private int malus;
 
@@ -32,6 +32,7 @@ public class Proposition extends Case implements Sanctionnable
         if(lettre == getValeur()){
             setScore(BONUS);
             setSuceces(true);
+            setFail(false);
         }
         else {
             this.malus = this.MALUS;
