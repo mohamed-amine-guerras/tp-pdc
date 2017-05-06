@@ -43,9 +43,9 @@ public class Mot {
      *Calcule le score obtenu par l'ensemble de tentative sur les cases
      */
 
-    public void updateScore(Case box){
+    private void updateScore(Case box){
         this.score = this.score + indication.getCoefition()*box.getScore();
-        if(ensmblesCasesSanctionnables.contains(box) && box.isFail()) this.score = this.score - ((Sanctionnable)box).getMalus(motSanctionnabl);
+        if(ensmblesCasesSanctionnables.contains(box) && !box.isSuceces()) this.score = this.score - ((Sanctionnable)box).getMalus(motSanctionnabl);
     }
     /*
     * Générer les cases formant les mots et met à jours l'attribut motSanctionnabl si nécessaire
