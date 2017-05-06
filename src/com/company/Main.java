@@ -19,18 +19,21 @@ public class Main {
         }
 
         for (Mot mot : wordsGenerator.getMotsSeance()){
+            System.out.println(mot.isMotSanctionnabl());
             for(Case box : mot.getEnsemblesCases()) System.out.println(box);
-            System.out.println(mot.getEnsemblesCases().size());
-            boolean stop =false;
-            while (!mot.isMotTerminee() && !stop){
-                Scanner scanner = new Scanner(System.in);
-                System.out.print("i = ");
-                int i = scanner.nextInt();
-                scanner = new Scanner(System.in);
-                System.out.println("c = ");
-                char car = scanner.nextLine().charAt(0);
-                stop = mot.Verification(car,i);
-            }
+            Scanner scanner = new Scanner(System.in);
+            String reponse = scanner.next();
+            test(reponse,mot);
+        }
+    }
+
+    private static void test(String reponse, Mot mot){
+        boolean succes = true;
+        char[] lettres = reponse.toCharArray();
+        for(int i = 0; i<lettres.length;i++){
+            mot.Verification(lettres[i],i);
+            System.out.println(mot.getScore());
         }
     }
 }
+

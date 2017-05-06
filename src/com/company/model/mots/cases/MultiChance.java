@@ -7,7 +7,7 @@ package com.company.model.mots.cases;
 public class MultiChance extends Case implements Sanctionnable {
 
     private int nbTentativesRestant;
-    private final int NB_MAX_TENTATIVE = 2;
+    private final int NB_MAX_TENTATIVE = 3;
     private final int BONUS = 1;
     private final int MALUS = 2;
     private int malus;

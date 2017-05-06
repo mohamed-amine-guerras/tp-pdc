@@ -5,6 +5,8 @@ import com.company.model.mots.cases.*;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static java.lang.Math.abs;
+
 /**
  * Created by Amine on 17/04/2017.
  */
@@ -21,6 +23,10 @@ public class Mot {
     private boolean motTerminee;
     private boolean motSanctionnabl;
     private int nbSuccess;
+
+    public boolean isMotSanctionnabl() {
+        return motSanctionnabl;
+    }
 
     public Mot(Indication indication, String valeur) {
         this.indication = indication;
@@ -54,44 +60,42 @@ public class Mot {
         char[] lettre = this.valeur.toCharArray();
         int i = 0;
         int choix;
-        int nbCasesSanctionnabl = 0;
         int nbCasesLimite = 0;
-        Case cas = null;
+        Case box = null;
         Random random = new Random();
         boolean finished = false;
         while (!finished){
-            choix = random.nextInt()%3;
+            choix = abs(random.nextInt())%3;
             switch (choix){
                 case 0 :
-                    cas = new MultiChance(lettre[i]);
-                    ensemblesCases.add(cas);
+                    box = new MultiChance(lettre[i]);
+                    ensemblesCases.add(box);
                     i++;
-                    this.ensmblesCasesSanctionnables.add((Sanctionnable)cas);
-                    nbCasesSanctionnabl++;
-                    if (nbCasesSanctionnabl == NB_CASES_SANCTION) motSanctionnabl = true;
+                    this.ensmblesCasesSanctionnables.add((Sanctionnable)box);
                     break;
                 case 1 :
                   if(nbCasesLimite < NB_CASES_LIMITES){
-                      cas = new Proposition(lettre[i]);
-                      ensemblesCases.add(cas);
+                      box = new Proposition(lettre[i]);
+                      ensemblesCases.add(box);
                       nbCasesLimite++;
-                      this.ensmblesCasesSanctionnables.add((Sanctionnable) cas);
+                      this.ensmblesCasesSanctionnables.add((Sanctionnable) box);
                       i++;
-                      nbCasesSanctionnabl++;
-                      if (nbCasesSanctionnabl == NB_CASES_SANCTION) motSanctionnabl = true;
                   }
 
                   break;
                 case 2 :
                     if(nbCasesLimite < NB_CASES_LIMITES){
-                        cas = new ZeroChance(lettre[i]);
+                        box = new ZeroChance(lettre[i]);
                         i++;
                         nbCasesLimite++;
-                        ensemblesCases.add(cas);
+                        ensemblesCases.add(box);
                     }
                     break;
         }
-        if (i == lettre.length) finished = true;
+        if (i == lettre.length) {
+                finished = true;
+                if(ensmblesCasesSanctionnables.size()>5) motSanctionnabl = true;
+        }
     }
     }
 
