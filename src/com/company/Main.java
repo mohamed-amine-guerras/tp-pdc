@@ -22,14 +22,14 @@ public class Main {
             for(Case box : mot.getEnsemblesCases()) System.out.println(box);
             System.out.println(mot.getEnsemblesCases().size());
             boolean stop =false;
-            while (!mot.isMotTermine() && !stop){
+            while (!mot.isMotTerminee() && !stop){
                 Scanner scanner = new Scanner(System.in);
                 System.out.print("i = ");
                 int i = scanner.nextInt();
                 scanner = new Scanner(System.in);
                 System.out.println("c = ");
                 char car = scanner.nextLine().charAt(0);
-                stop = mot.Verrifier(i,car);
+                stop = mot.Verification(car,i);
             }
         }
     }
