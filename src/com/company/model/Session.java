@@ -2,6 +2,7 @@ package com.company.model;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Created by Amine on 17/04/2017.
@@ -10,17 +11,17 @@ public class Session {
     private Player player;
     private HashMap<String,Mot> mots;
     private Mot motActuel;
-    private Iterator<Mot> iterator;
+    private Iterator<Map.Entry<String, Mot>> iterator;
     private boolean sessionTerminee;
     private final int nombreEchecsMax = 6;
     private int nombreEchecsActuel;
 
 
-    public Session(Player player, HashMap<String, Mot> mots, Mot motActuel, Iterator<Mot> iterator) {
+    public Session(Player player, HashMap<String, Mot> mots) {
         this.player = player;
         this.mots = mots;
-        this.motActuel = iterator.next();
-        this.iterator = iterator;
+        this.motActuel = iterator.next().getValue();
+        this.iterator = mots.entrySet().iterator();
         this.sessionTerminee = false;
         this.nombreEchecsActuel = 0 ;
 
@@ -46,7 +47,7 @@ public class Session {
                 }
             }
             if (iterator.hasNext()){/** il reste des mots à deviner*/
-                motActuel = iterator.next();
+                motActuel = iterator.next().getValue();
             }
             else {/** le joueur a finie tous les mots*/
                 sessionTerminee = true;

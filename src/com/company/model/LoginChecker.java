@@ -52,6 +52,14 @@ public class LoginChecker {
         }
 
 
+        public Player getPlayer(String pseudonyme){
+
+        InitializeUsersHashMap();
+        return (Player) usersHashMap.get(pseudonyme);
+
+        }
+
+
 
         }
 

@@ -1,6 +1,7 @@
 package com.company.model;
 
 import java.io.*;
+import java.util.HashMap;
 
 /**
  * Created by Amine on 17/04/2017.
@@ -27,9 +28,11 @@ public class Pendu {
         }
 
     }
-
-    public void StartSession(){
-        sessionActuel = new Session();
+    public Player getPlayer(String pseudonyme){
+        return new LoginChecker(UsersFilePath).getPlayer(pseudonyme);
+    }
+    public void StartSession(Player player, HashMap<String,Mot> mots){
+        sessionActuel = new Session(player,mots);
     }
     public void EndSession(){
         sessionTerminee = true;
