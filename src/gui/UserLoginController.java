@@ -2,6 +2,7 @@ package gui;
 
 import com.company.model.LoginNotFoundException;
 import com.company.model.Pendu;
+import com.company.model.Session;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXTextField;
@@ -22,11 +23,6 @@ import static gui.MainApp.CONFIRMATION_DIALOG_BOX;
 public class UserLoginController implements Controller {
     private MainApp mainApp;
     private Pendu pendu;
-    HomeController homeController;
-
-    public void setHomeController(HomeController homeController) {
-        this.homeController = homeController;
-    }
 
     public void setPendu(Pendu pendu) {
         this.pendu = pendu;
@@ -64,8 +60,8 @@ public class UserLoginController implements Controller {
             try {
                 boolean exist = pendu.LoginCheck(pseudonyme);
                 if (exist){
-                    //TODO change scenes
-
+                    pendu.StartSession();
+                    //TODO switch to another scene (playing scene)
                 }
             } catch (LoginNotFoundException e) {
                 showDialogBox("ERREUR","Pseudonyme inexistant!");

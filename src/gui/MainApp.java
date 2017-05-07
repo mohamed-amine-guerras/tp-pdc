@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class MainApp extends Application {
 
-    private static String Home = "/resources/fxml/Home.fxml";
+    private static String Home = "/resources/fxml/HomeView.fxml";
     static final String NEW_SESSION = "/resources/fxml/UserLoginView.fxml";
     static final String CONFIRMATION_DIALOG_BOX = "/resources/fxml/ConfirmationDialogBox.fxml";
     private Stage primary;
@@ -36,5 +36,4 @@ public class MainApp extends Application {
         primaryStage.show();
 
     }
-
 }
