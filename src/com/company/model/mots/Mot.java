@@ -94,7 +94,7 @@ public class Mot {
         }
         if (i == lettre.length) {
                 finished = true;
-                if(ensmblesCasesSanctionnables.size()>5) motSanctionnabl = true;
+                if(ensmblesCasesSanctionnables.size()>NB_CASES_SANCTION) motSanctionnabl = true;
         }
     }
     }
