@@ -54,18 +54,7 @@ public class HomeController implements Controller {
 
     @FXML
     void onNewSessionButton(ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(NEW_SESSION));
-        try {
-            Parent login = loader.load();
-            ((Controller) loader.getController()).setMainApp(mainApp);
-            ((UserLoginController) loader.getController()).setPendu(pendu);
-            gridPane.add(login,0,1);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
+        setScene(NEW_SESSION);
         }
 
     @FXML
@@ -97,5 +86,18 @@ public class HomeController implements Controller {
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
 
+    }
+
+    public void setScene(String resource){
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(resource));
+        try {
+            Parent login = loader.load();
+            ((Controller) loader.getController()).setMainApp(mainApp);
+            ((UserLoginController) loader.getController()).setPendu(pendu);
+            gridPane.add(login,0,1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

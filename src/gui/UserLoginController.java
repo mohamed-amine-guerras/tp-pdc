@@ -22,6 +22,11 @@ import static gui.MainApp.CONFIRMATION_DIALOG_BOX;
 public class UserLoginController implements Controller {
     private MainApp mainApp;
     private Pendu pendu;
+    HomeController homeController;
+
+    public void setHomeController(HomeController homeController) {
+        this.homeController = homeController;
+    }
 
     public void setPendu(Pendu pendu) {
         this.pendu = pendu;
@@ -58,6 +63,10 @@ public class UserLoginController implements Controller {
         else {
             try {
                 boolean exist = pendu.LoginCheck(pseudonyme);
+                if (exist){
+                    //TODO change scenes
+
+                }
             } catch (LoginNotFoundException e) {
                 showDialogBox("ERREUR","Pseudonyme inexistant!");
 
