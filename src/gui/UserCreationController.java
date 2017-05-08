@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Created by Amine on 05/05/2017.
  */
-public class UserCreationViewController {
+public class UserCreationController {
     private UserLoginController userLoginController;
     private Pendu pendu;
 
@@ -35,6 +35,8 @@ public class UserCreationViewController {
         else {
             try {
                 pendu.AddPseudonyme(pseudonyme);
+                userLoginController.hideAll();
+                userLoginController.showDialogBox("Succés","Bienvenue "+pseudonyme+" dans le jeu!");
             } catch (IOException|ClassNotFoundException e) {
                 userLoginController.showDialogBox("ERREUR","Erreur lors de l'écriture dans le fichier des psudonymes");
             }

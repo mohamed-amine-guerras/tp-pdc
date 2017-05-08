@@ -1,6 +1,9 @@
 package com.company.model;
 
+import com.company.model.mots.Mot;
+
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -9,19 +12,19 @@ import java.util.Map;
  */
 public class Session {
     private Player player;
-    private HashMap<String,Mot> mots;
+    private HashSet<Mot> mots;
     private Mot motActuel;
-    private Iterator<Map.Entry<String, Mot>> iterator;
+    private Iterator<Mot> iterator;
     private boolean sessionTerminee;
     private final int nombreEchecsMax = 6;
     private int nombreEchecsActuel;
 
 
-    public Session(Player player, HashMap<String, Mot> mots) {
+    public Session(Player player, HashSet<Mot> mots) {
         this.player = player;
         this.mots = mots;
-        this.motActuel = iterator.next().getValue();
-        this.iterator = mots.entrySet().iterator();
+        this.motActuel = iterator.next();
+        this.iterator = mots.iterator();
         this.sessionTerminee = false;
         this.nombreEchecsActuel = 0 ;
 
@@ -47,7 +50,7 @@ public class Session {
                 }
             }
             if (iterator.hasNext()){/** il reste des mots à deviner*/
-                motActuel = iterator.next().getValue();
+                motActuel = iterator.next();
             }
             else {/** le joueur a finie tous les mots*/
                 sessionTerminee = true;
