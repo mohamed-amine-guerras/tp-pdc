@@ -2,10 +2,7 @@ package com.company.model;
 
 import com.company.model.mots.Mot;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Amine on 17/04/2017.
@@ -19,6 +16,9 @@ public class Session {
     private final int nombreEchecsMax = 6;
     private int nombreEchecsActuel;
 
+    public Player getPlayer() {
+        return player;
+    }
 
     public Session(Player player, HashSet<Mot> mots) {
         this.player = player;
@@ -63,6 +63,10 @@ public class Session {
         else player.setScoreActuel(motActuel.getScore());
 
 
+    }
+
+    public ArrayList<Integer> getScores(){
+        return player.getScores();
     }
 
 
