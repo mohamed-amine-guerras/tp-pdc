@@ -68,13 +68,7 @@ public class HomeController implements Controller {
 
         }
 
-    @FXML
-    void onResumeButton(ActionEvent event) {
-    }
 
-    @FXML
-    void on(ActionEvent event) {
-        }
 
     @FXML
     void onHighScoreButton(ActionEvent event) {

@@ -2,27 +2,29 @@ package com.company.model;
 
 import com.company.model.mots.Mot;
 
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * Created by Amine on 17/04/2017.
  */
 public class Session {
     private Player player;
-    private HashMap<String,Mot> mots;
+    private HashSet<Mot> mots;
     private Mot motActuel;
     private Iterator<Mot> iterator;
     private boolean sessionTerminee;
     private final int nombreEchecsMax = 6;
     private int nombreEchecsActuel;
 
+    public Player getPlayer() {
+        return player;
+    }
 
-    public Session(Player player, HashMap<String, Mot> mots, Mot motActuel, Iterator<Mot> iterator) {
+    public Session(Player player, HashSet<Mot> mots) {
         this.player = player;
         this.mots = mots;
         this.motActuel = iterator.next();
-        this.iterator = iterator;
+        this.iterator = mots.iterator();
         this.sessionTerminee = false;
         this.nombreEchecsActuel = 0 ;
 
@@ -61,6 +63,10 @@ public class Session {
         else player.setScoreActuel(motActuel.getScore());
 
 
+    }
+
+    public ArrayList<Integer> getScores(){
+        return player.getScores();
     }
 
 

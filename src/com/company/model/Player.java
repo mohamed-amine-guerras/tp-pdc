@@ -12,6 +12,10 @@ public class Player implements Serializable {
     private transient ArrayList<Integer> scores;
     private transient int scoreActuel;
 
+    public ArrayList<Integer> getScores() {
+        return scores;
+    }
+
     public Player(String pseudonyme) {
         this.pseudonyme = pseudonyme;
         this.meilleureScore = 0;

@@ -2,6 +2,8 @@ package gui;
 
 import com.company.model.LoginNotFoundException;
 import com.company.model.Pendu;
+import com.company.model.Session;
+import com.company.model.mots.WordsGenerator;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXTextField;
@@ -12,6 +14,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static gui.MainApp.CONFIRMATION_DIALOG_BOX;
 
@@ -22,6 +25,8 @@ import static gui.MainApp.CONFIRMATION_DIALOG_BOX;
 public class UserLoginController implements Controller {
     private MainApp mainApp;
     private Pendu pendu;
+    private ArrayList<JFXDialog> dialogs = new ArrayList<>();
+
 
     public void setPendu(Pendu pendu) {
         this.pendu = pendu;
@@ -45,6 +50,21 @@ public class UserLoginController implements Controller {
 
     @FXML
     void onSignupButton(ActionEvent event) {
+        JFXDialog dialog = new JFXDialog();
+        dialogs.add(dialog);
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/resources/fxml/UserCreationView.fxml"));
+        Region region = null;
+        try {
+            region = loader.load();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+        ((UserCreationController) loader.getController()).setUserLoginController(this);
+        dialog.setContent(region);
+        ((UserCreationController)loader.getController()).setPendu(pendu);
+        dialog.show(rootStackPane);
+
 
     }
 
@@ -58,6 +78,10 @@ public class UserLoginController implements Controller {
         else {
             try {
                 boolean exist = pendu.LoginCheck(pseudonyme);
+                if (exist){
+                    pendu.StartSession(pendu.getPlayer(pseudonyme),new WordsGenerator().getMotsSeance());
+                    //TODO switch to another scene (playing scene)
+                }
             } catch (LoginNotFoundException e) {
                 showDialogBox("ERREUR","Pseudonyme inexistant!");
 
@@ -71,6 +95,7 @@ public class UserLoginController implements Controller {
 
     public void showDialogBox(String title,String content){
         JFXDialog dialog = new JFXDialog();
+        dialogs.add(dialog);
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(CONFIRMATION_DIALOG_BOX));
         Region region = null;
@@ -85,7 +110,12 @@ public class UserLoginController implements Controller {
             e.printStackTrace();
         }
     }
+    public void hideAll(){
+        for (JFXDialog d:dialogs) {
+            d.close();
 
+        }
+    }
     @Override
     public void cancel() {
 
