@@ -34,7 +34,6 @@
                   <Insets left="10.0" top="10.0" />
                </VBox.margin>
             </HBox>
-            <Label id="unavailable" fx:id="noHighScores" text="Aucun meilleur score" />
             <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
                <children>
                   <Region prefHeight="230.0" prefWidth="33.0" />

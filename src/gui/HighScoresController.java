@@ -32,11 +32,6 @@ public class HighScoresController implements Initializable{
     MainApp mainApp;
 
 
-
-    @FXML
-    private Label noHighScores;
-
-
     @FXML
     private JFXTreeTableView<Score> highScoresList;
 
@@ -74,16 +69,12 @@ public class HighScoresController implements Initializable{
         TreeMap<Integer, String> treeMap = pendu.getHighScores();
         ObservableList<Score> Scores = FXCollections.observableArrayList();
         if(treeMap != null && !treeMap.isEmpty()){
-            noHighScores.setVisible(false);
             for (Map.Entry<Integer,String> e:treeMap.entrySet()) {
                 Scores.add(new Score(e.getValue(),e.getKey()));
 
             }
         }
 
-        for (int i = 0 ; i < 100 ; i++){
-            Scores.add(new Score("Amine",Scores.size()));
-        }
 
 
 
