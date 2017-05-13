@@ -27,9 +27,6 @@ public class MainApp extends Application {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(Home));
         Parent home = loader.load();
-
-        ((Controller) loader.getController()).setMainApp(this);
-
         JFXDecorator decorator = new JFXDecorator(primaryStage,home);
         primaryStage.setTitle("Le Pendu");
         primaryStage.setScene(new Scene(decorator, 600, 500));

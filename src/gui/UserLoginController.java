@@ -23,11 +23,10 @@ import static gui.MainApp.CONFIRMATION_DIALOG_BOX;
  * Created by Amine on 04/05/2017.
  */
 public class UserLoginController implements Controller {
-    private MainApp mainApp;
     private Pendu pendu;
     private ArrayList<JFXDialog> dialogs = new ArrayList<>();
 
-
+    @Override
     public void setPendu(Pendu pendu) {
         this.pendu = pendu;
     }
@@ -116,14 +115,5 @@ public class UserLoginController implements Controller {
 
         }
     }
-    @Override
-    public void cancel() {
 
-    }
-
-    @Override
-    public void setMainApp(MainApp mainApp) {
-        this.mainApp = mainApp;
-
-    }
 }

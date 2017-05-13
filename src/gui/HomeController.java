@@ -22,9 +22,9 @@ import static gui.MainApp.NEW_SESSION;
  */
 public class HomeController implements Controller {
     private static String usersFilePath = "users.dat";
-    public static Pendu pendu = new Pendu(usersFilePath);
+    private static Pendu pendu = new Pendu(usersFilePath);
 
-    public Pendu getPendu() {
+    public static Pendu getPendu() {
         return pendu;
     }
 
@@ -58,7 +58,15 @@ public class HomeController implements Controller {
 
     @FXML
     void onNewSessionButton(ActionEvent event) {
-        setScene(NEW_SESSION);
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(NEW_SESSION));
+        try {
+            Parent parent = loader.load();
+            ((Controller) loader.getController()).setPendu(pendu);
+            gridPane.add(parent,0,1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         }
 
 
@@ -83,32 +91,11 @@ public class HomeController implements Controller {
     void onExitButton(ActionEvent event) {
         }
 
-    @Override
-    public void cancel() {
 
-    }
-
-    @Override
-    public void setMainApp(MainApp mainApp) {
-        this.mainApp = mainApp;
-
-    }
 
     @Override
     public void setPendu(Pendu pendu) {
 
     }
 
-    public void setScene(String sceneName){
-       FXMLLoader loader = new FXMLLoader();
-       loader.setLocation(getClass().getResource(sceneName));
-       try {
-           Parent parent = loader.load();
-           ((Controller) loader.getController()).setMainApp(mainApp);
-           ((Controller) loader.getController()).setPendu(pendu);
-           gridPane.add(parent,0,1);
-       } catch (IOException e) {
-           e.printStackTrace();
-       }
-   }
 }
