@@ -16,6 +16,7 @@ public class MainApp extends Application {
     private static String Home = "/resources/fxml/HomeView.fxml";
     static final String NEW_SESSION = "/resources/fxml/UserLoginView.fxml";
     static final String CONFIRMATION_DIALOG_BOX = "/resources/fxml/ConfirmationDialogBox.fxml";
+    static final String SESSION_VIEW = "/resources/fxml/SessionView.fxml";
     private Stage primary;
     public static void main(String[] args) {
         launch(args);
@@ -24,10 +25,11 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(Home));
+        loader.setLocation(getClass().getResource(SESSION_VIEW));
         Parent home = loader.load();
 
         ((Controller) loader.getController()).setMainApp(this);
+        ((SessionViewController)loader.getController()).setup();
 
         JFXDecorator decorator = new JFXDecorator(primaryStage,home);
         primaryStage.setTitle("Le Pendu");

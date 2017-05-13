@@ -14,4 +14,8 @@ public class Definition extends Indication {
         return COEFITENT;
     }
 
+    @Override
+    public String toString() {
+        return "Définition";
+    }
 }

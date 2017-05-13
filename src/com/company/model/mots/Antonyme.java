@@ -15,5 +15,8 @@ public class Antonyme extends Indication {
         return COEFITIENT;
     }
 
-
+    @Override
+    public String toString() {
+        return "Antonyme : ";
+    }
 }

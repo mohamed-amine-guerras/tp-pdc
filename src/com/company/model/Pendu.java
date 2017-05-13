@@ -3,23 +3,30 @@ package com.company.model;
 import com.company.model.mots.Mot;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Created by Amine on 17/04/2017.
  */
-public class Pendu {
+public class Pendu extends Observable{
     private Session sessionActuel;
     private  String UsersFilePath;
     private String WordsFilePath;
     private boolean sessionTerminee;
     private String highScoresFilePath = "highScors.dat";
     private TreeMap<Integer,String> highScores;
+    private ArrayList<Observer> observers = new ArrayList<>();
 
     public Pendu(String usersFilePath) {
         UsersFilePath = usersFilePath;
+    }
+
+    public Session getSessionActuel() {
+        return sessionActuel;
+    }
+
+    public boolean isSessionTerminee() {
+        return sessionTerminee;
     }
 
     public boolean LoginCheck(String pseudonyme) throws LoginNotFoundException, IOException, ClassNotFoundException {
@@ -42,6 +49,7 @@ public class Pendu {
     }
     public void EndSession(){
         sessionTerminee = true;
+        notifyObservers();
     }
 
 
@@ -76,4 +84,22 @@ public class Pendu {
         }
         storeHighScores();
     }
+
+    @Override
+    public synchronized void addObserver(Observer o) {
+        observers.add(o);
+    }
+
+    @Override
+    public synchronized void deleteObserver(Observer o) {
+        super.deleteObserver(o);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer o : observers){
+            o.update((Observable) this,sessionTerminee);
+        }
+    }
 }
+

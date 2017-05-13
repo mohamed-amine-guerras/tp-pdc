@@ -50,7 +50,7 @@ public class Mot {
      */
 
     private void updateScore(Case box){
-        this.score = this.score + indication.getCoefition()*box.getScore();
+        this.score = indication.getCoefition()*box.getScore();
         if(ensmblesCasesSanctionnables.contains(box) && !box.isSuceces()) this.score = this.score - ((Sanctionnable)box).getMalus(motSanctionnabl);
     }
     /*
@@ -99,20 +99,20 @@ public class Mot {
     }
     }
 
-    public boolean Verification(char c,int index){
+    public boolean Verification(char c, int index) {
         boolean stop = false;
         Case box = ensemblesCases.get(index);
         box.tentative(c);
         stop = ensemblesCases.get(index).isFail();//On s'arrete si le joueur échoue
-        if(box.isSuceces()) nbSuccess++;// si le joueur entre le bon carractère on incrémente le nombre de succes
-        System.out.println("nbSuccess = "+nbSuccess);
-        if(nbSuccess == ensemblesCases.size()){// si le joueur réussi tous les case
+        if (box.isSuceces()) nbSuccess++;// si le joueur entre le bon carractère on incrémente le nombre de succes
+        System.out.println("nbSuccess = " + nbSuccess);
+        if (nbSuccess == ensemblesCases.size()) {// si le joueur réussi tous les case
             motTerminee = true; // donc le mot est terminé
             stop = true; // le joueur ne peut pas continuer
         }
         updateScore(box);
-        System.out.println(this.score);
-        return stop;
+        System.out.println("score = "+this.score);
+        return !stop;
     }
 
 
@@ -134,5 +134,9 @@ public class Mot {
     @Override
     public String toString() {
         return valeur  ;
+    }
+
+    public Indication getIndication() {
+        return indication;
     }
 }
