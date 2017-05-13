@@ -13,7 +13,8 @@ import java.io.IOException;
 
 public class MainApp extends Application {
 
-    private static String Home = "/resources/fxml/HomeView.fxml";
+    static String HOME = "/resources/fxml/HomeView.fxml";
+    static String Home = "/resources/fxml/Home.fxml";
     static final String NEW_SESSION = "/resources/fxml/UserLoginView.fxml";
     static final String CONFIRMATION_DIALOG_BOX = "/resources/fxml/ConfirmationDialogBox.fxml";
     static final String HIGH_SCORES = "/resources/fxml/HighScoresView.fxml";
@@ -25,7 +26,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(Home));
+        loader.setLocation(getClass().getResource(HOME));
         Parent home = loader.load();
         JFXDecorator decorator = new JFXDecorator(primaryStage,home);
         primaryStage.setTitle("Le Pendu");

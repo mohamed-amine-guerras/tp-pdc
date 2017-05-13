@@ -23,6 +23,11 @@ import static gui.MainApp.NEW_SESSION;
 public class HomeController implements Controller {
     private static String usersFilePath = "users.dat";
     private static Pendu pendu = new Pendu(usersFilePath);
+    private GridPane gridPane;
+
+    public void setGridPane(GridPane gridPane) {
+        this.gridPane = gridPane;
+    }
 
     public static Pendu getPendu() {
         return pendu;
@@ -31,11 +36,6 @@ public class HomeController implements Controller {
     public static void setUsersFilePath(String usersFilePath) {
         HomeController.usersFilePath = usersFilePath;
     }
-
-    private MainApp mainApp ;
-
-    @FXML
-    private GridPane gridPane;
 
 
     @FXML
@@ -63,6 +63,7 @@ public class HomeController implements Controller {
         try {
             Parent parent = loader.load();
             ((Controller) loader.getController()).setPendu(pendu);
+            ((UserLoginController)loader.getController()).setGridPane(gridPane);
             gridPane.add(parent,0,1);
         } catch (IOException e) {
             e.printStackTrace();
@@ -77,6 +78,7 @@ public class HomeController implements Controller {
         loader.setLocation(getClass().getResource(HIGH_SCORES));
         try {
             Parent parent = loader.load();
+            ((HighScoresController)loader.getController()).setGridPane(gridPane);
             gridPane.add(parent,0,1);
         } catch (IOException e) {
             e.printStackTrace();

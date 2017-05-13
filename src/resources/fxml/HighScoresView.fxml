@@ -41,6 +41,7 @@
                   <Region prefHeight="230.0" prefWidth="56.0" />
                </children>
             </HBox>
+            <JFXButton fx:id="previousButton" onAction="#onPreviousButton" text="Précédent" />
             <Region prefHeight="56.0" prefWidth="644.0" />
          </children>
       </VBox>

@@ -10,13 +10,15 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static gui.MainApp.CONFIRMATION_DIALOG_BOX;
+import static gui.MainApp.*;
 
 
 /**
@@ -25,11 +27,21 @@ import static gui.MainApp.CONFIRMATION_DIALOG_BOX;
 public class UserLoginController implements Controller {
     private Pendu pendu;
     private ArrayList<JFXDialog> dialogs = new ArrayList<>();
+    private GridPane gridPane;
+
+    public void setGridPane(GridPane gridPane) {
+        this.gridPane = gridPane;
+    }
 
     @Override
     public void setPendu(Pendu pendu) {
         this.pendu = pendu;
     }
+
+
+    @FXML
+    private JFXButton previousButton;
+
 
     @FXML
     private StackPane rootStackPane;
@@ -78,7 +90,7 @@ public class UserLoginController implements Controller {
             try {
                 boolean exist = pendu.LoginCheck(pseudonyme);
                 if (exist){
-                    pendu.StartSession(pendu.getPlayer(pseudonyme),new WordsGenerator().getMotsSeance());
+                   // pendu.StartSession(pendu.getPlayer(pseudonyme),new WordsGenerator().getMotsSeance());
                     //TODO switch to another scene (playing scene)
                 }
             } catch (LoginNotFoundException e) {
@@ -88,6 +100,21 @@ public class UserLoginController implements Controller {
                 showDialogBox("ERREUR","Erreur lors de la lecture du fichier des pseudonymes");
             }
 
+        }
+
+    }
+
+    @FXML
+    void onPreviousButton(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(Home));
+        try {
+            Parent parent = loader.load();
+            ((Controller) loader.getController()).setPendu(pendu);
+            ((HomeController)loader.getController()).setGridPane(gridPane);
+            gridPane.add(parent,0,1);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }

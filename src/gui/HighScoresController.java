@@ -1,29 +1,30 @@
 package gui;
 
 import com.company.model.Pendu;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
-import com.jfoenix.controls.cells.editors.TextFieldEditorBuilder;
-import com.jfoenix.controls.cells.editors.base.GenericEditableTreeTableCell;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import javafx.scene.Parent;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
+import javafx.scene.layout.GridPane;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.Set;
 import java.util.TreeMap;
 
 import static gui.HomeController.getPendu;
+import static gui.MainApp.Home;
 
 
 /**
@@ -31,6 +32,14 @@ import static gui.HomeController.getPendu;
  */
 public class HighScoresController implements Initializable,Controller{
 
+    private GridPane gridPane;
+
+    public void setGridPane(GridPane gridPane) {
+        this.gridPane = gridPane;
+    }
+
+    @FXML
+    private JFXButton previousButton;
 
 
     @FXML
@@ -88,6 +97,22 @@ public class HighScoresController implements Initializable,Controller{
         highScoresList.getColumns().setAll(scoreColumn,playerColumn);
 
 
+    }
+
+
+
+    @FXML
+    void onPreviousButton(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(Home));
+        try {
+            Parent parent = loader.load();
+            ((Controller) loader.getController()).setPendu(getPendu());
+            ((HomeController)loader.getController()).setGridPane(gridPane);
+            gridPane.add(parent,0,1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

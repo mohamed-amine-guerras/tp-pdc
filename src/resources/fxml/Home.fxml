@@ -1,58 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
 <?import javafx.geometry.*?>
-<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import com.jfoenix.controls.JFXButton?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
 
-<StackPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.HomeController">
+<AnchorPane id="dash-container" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.HomeController">
    <children>
-      <GridPane id="back-pane" fx:id="gridPane" stylesheets="@style.css">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints maxHeight="192.0" minHeight="10.0" prefHeight="83.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="450.0" minHeight="10.0" prefHeight="402.0" vgrow="SOMETIMES" />
-         </rowConstraints>
+      <VBox alignment="CENTER" prefHeight="402.0" prefWidth="513.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane id="dash-container" stylesheets="@style.css" GridPane.rowIndex="1">
-               <children>
-                  <VBox alignment="CENTER" layoutY="31.0" prefHeight="371.0" prefWidth="513.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0">
-                     <children>
-                        <JFXButton fx:id="newSessionButton" onAction="#onNewSessionButton" prefHeight="0.0" prefWidth="283.0" stylesheets="@style.css" text="Nouvelle session" textFill="WHITE" />
-                        <JFXButton fx:id="resumeSessionButton" onAction="#onResumeButton" prefHeight="0.0" prefWidth="283.0" stylesheets="@style.css" text="Reprendre une session" />
-                        <JFXButton fx:id="highScoresButton" onAction="#onHighScoreButton" prefHeight="0.0" prefWidth="283.0" stylesheets="@style.css" text="Meilleures scores" />
-                        <JFXButton fx:id="optionsButton" onAction="#onOptionsButton" prefHeight="0.0" prefWidth="283.0" stylesheets="@style.css" text="Options" />
-                        <JFXButton fx:id="exitButton" onAction="#onExitButton" prefHeight="64.0" prefWidth="271.0" stylesheets="@style.css" text="Quitter">
-                           <opaqueInsets>
-                              <Insets bottom="1.0" right="1.0" top="1.0" />
-                           </opaqueInsets>
-                        </JFXButton>
-                     </children>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </VBox>
-                  <ImageView fitHeight="97.0" fitWidth="254.0" layoutX="152.0" layoutY="-36.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@/../../../../../../Documents/Pendu.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
+            <JFXButton fx:id="newSessionButton" onAction="#onNewSessionButton" prefHeight="0.0" prefWidth="283.0" stylesheets="@style.css" text="Nouvelle session" textFill="WHITE" />
+            <JFXButton fx:id="highScoresButton" onAction="#onHighScoreButton" prefHeight="0.0" prefWidth="283.0" stylesheets="@style.css" text="Meilleures scores" />
+            <JFXButton fx:id="optionsButton" onAction="#onOptionsButton" prefHeight="0.0" prefWidth="283.0" stylesheets="@style.css" text="Options" />
+            <JFXButton fx:id="exitButton" onAction="#onExitButton" prefHeight="64.0" prefWidth="271.0" stylesheets="@style.css" text="Quitter">
+               <opaqueInsets>
+                  <Insets bottom="1.0" right="1.0" top="1.0" />
+               </opaqueInsets>
+            </JFXButton>
          </children>
-      </GridPane>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
    </children>
-</StackPane>
+</AnchorPane>

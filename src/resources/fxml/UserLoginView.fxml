@@ -17,7 +17,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-
 <StackPane fx:id="rootStackPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.UserLoginController">
    <children>
       <AnchorPane>
@@ -41,6 +40,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </JFXButton>
+                        <JFXButton fx:id="previousButton" onAction="#onPreviousButton" text="Précédent" />
                         <JFXButton fx:id="connectButton" onAction="#onConnectButton" text="Connexion" />
                      </children>
                   </HBox>

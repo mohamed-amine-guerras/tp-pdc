@@ -31,7 +31,7 @@ public class LoginChecker {
             ObjectInputStream objectInputStream = new ObjectInputStream(new BufferedInputStream(new FileInputStream(new File(usersFile))));
             usersHashMap = (HashMap<String, Player>) objectInputStream.readObject();
         } catch (ClassNotFoundException | IOException e) {
-            usersHashMap = null;
+            usersHashMap = new HashMap<>();
         }
     }
     /**
@@ -40,9 +40,6 @@ public class LoginChecker {
     public void Addpseudonyme(String pseudonyme) throws IOException, ClassNotFoundException {
         Player player = new Player(pseudonyme);
         InitializeUsersHashMap();
-        if (usersHashMap == null) {
-            usersHashMap = new HashMap<>();
-        }
         if (!usersHashMap.containsKey(pseudonyme)) {
             usersHashMap.put(player.getPseudonyme(), player);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File(usersFile))));
