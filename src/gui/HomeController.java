@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static gui.MainApp.HIGH_SCORES;
 import static gui.MainApp.NEW_SESSION;
 
 /**
@@ -21,8 +22,11 @@ import static gui.MainApp.NEW_SESSION;
  */
 public class HomeController implements Controller {
     private static String usersFilePath = "users.dat";
-    private Pendu pendu = new Pendu(usersFilePath);
+    public static Pendu pendu = new Pendu(usersFilePath);
 
+    public Pendu getPendu() {
+        return pendu;
+    }
 
     public static void setUsersFilePath(String usersFilePath) {
         HomeController.usersFilePath = usersFilePath;
@@ -54,24 +58,21 @@ public class HomeController implements Controller {
 
     @FXML
     void onNewSessionButton(ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(NEW_SESSION));
-        try {
-            Parent login = loader.load();
-            ((Controller) loader.getController()).setMainApp(mainApp);
-            ((UserLoginController) loader.getController()).setPendu(pendu);
-            gridPane.add(login,0,1);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
+        setScene(NEW_SESSION);
         }
 
 
 
     @FXML
     void onHighScoreButton(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(HIGH_SCORES));
+        try {
+            Parent parent = loader.load();
+            gridPane.add(parent,0,1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         }
 
     @FXML
@@ -92,4 +93,22 @@ public class HomeController implements Controller {
         this.mainApp = mainApp;
 
     }
+
+    @Override
+    public void setPendu(Pendu pendu) {
+
+    }
+
+    public void setScene(String sceneName){
+       FXMLLoader loader = new FXMLLoader();
+       loader.setLocation(getClass().getResource(sceneName));
+       try {
+           Parent parent = loader.load();
+           ((Controller) loader.getController()).setMainApp(mainApp);
+           ((Controller) loader.getController()).setPendu(pendu);
+           gridPane.add(parent,0,1);
+       } catch (IOException e) {
+           e.printStackTrace();
+       }
+   }
 }

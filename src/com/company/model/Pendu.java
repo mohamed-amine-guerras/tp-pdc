@@ -18,6 +18,10 @@ public class Pendu {
     private String highScoresFilePath = "highScors.dat";
     private TreeMap<Integer,String> highScores;
 
+    public TreeMap<Integer, String> getHighScores() {
+        return highScores;
+    }
+
     public Pendu(String usersFilePath) {
         UsersFilePath = usersFilePath;
     }
