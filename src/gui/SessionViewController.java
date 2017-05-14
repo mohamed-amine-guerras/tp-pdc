@@ -173,10 +173,17 @@ public class SessionViewController  implements Controller,Observer,Initializable
                 JFXNodesList propositions = new JFXNodesList();
                 propositions.getStylesheets().add("resources/fxml/boxesStyles.css");
                 propositions.addAnimatedNode(button);
+
+                button.setOnAction(e->{
+                    button.setId("on-action");
+                    propositions.animateList();
+                });
                 for(Character c : ((Proposition)box).getProposition()){
                     JFXButton prop = new JFXButton(String.valueOf(c).toUpperCase());
+
                     prop.setOnAction(e->{
                         button.setText(prop.getText());
+                        button.setId("proposition");
                         propositions.animateList();
                         button.setDisable(true);
                         pendu.VerificationCase(button.getText().toLowerCase().charAt(0), hashMap.get(button));
@@ -188,7 +195,7 @@ public class SessionViewController  implements Controller,Observer,Initializable
                 }
                 vBox.getChildren().add(propositions);
                 vBox.setAlignment(Pos.CENTER);
-                propositions.setSpacing(7);
+                propositions.setSpacing(6);
                 boxesContainer.getChildren().add(vBox);
             }
         }
