@@ -72,6 +72,7 @@ public class UserLoginController implements Controller {
             e.printStackTrace();
         }
         ((UserCreationController) loader.getController()).setUserLoginController(this);
+        ((UserCreationController)loader.getController()).setGridPane(gridPane);
         dialog.setContent(region);
         ((UserCreationController)loader.getController()).setPendu(pendu);
         dialog.show(rootStackPane);
@@ -90,8 +91,17 @@ public class UserLoginController implements Controller {
             try {
                 boolean exist = pendu.LoginCheck(pseudonyme);
                 if (exist){
-                   // pendu.StartSession(pendu.getPlayer(pseudonyme),new WordsGenerator().getMotsSeance());
-                    //TODO switch to another scene (playing scene)
+                    pendu.StartSession(pendu.getPlayer(pseudonyme),new WordsGenerator().getMotsSeance());
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource(NEW_SESSION));
+                    try {
+                        Parent parent = loader.load();
+                        ((Controller) loader.getController()).setPendu(pendu);
+                        ((SessionViewController)loader.getController()).setGridPane1(gridPane);
+                        gridPane.add(parent,0,1);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             } catch (LoginNotFoundException e) {
                 showDialogBox("ERREUR","Pseudonyme inexistant!");
@@ -141,6 +151,9 @@ public class UserLoginController implements Controller {
             d.close();
 
         }
+    }
+    public void setScene(String sceneName){
+
     }
 
 }

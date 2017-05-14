@@ -19,6 +19,7 @@ public class MainApp extends Application {
     static final String CONFIRMATION_DIALOG_BOX = "/resources/fxml/ConfirmationDialogBox.fxml";
     static final String HIGH_SCORES = "/resources/fxml/HighScoresView.fxml";
     static final String OPTIONS = "/resources/fxml/OptionsView.fxml";
+    static final String SESSION_VIEW = "/resources/fxml/SessionView.fxml";
 
 
     private Stage primary;

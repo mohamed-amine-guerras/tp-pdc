@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
+import static gui.HomeController.getPendu;
 import static gui.MainApp.CONFIRMATION_DIALOG_BOX;
 import static gui.MainApp.SESSION_VIEW;
 
@@ -38,10 +39,15 @@ import static gui.MainApp.SESSION_VIEW;
  */
 public class SessionViewController  implements Controller,Observer,Initializable {
 
-    private MainApp manApp;
     private Mot mot;
     private Pendu pendu;
     private Session session;
+    private GridPane gridPane1;
+
+    public void setGridPane1(GridPane gridPane1) {
+        this.gridPane1 = gridPane1;
+    }
+
     @FXML
     private GridPane gridPane;
 
@@ -88,8 +94,7 @@ public class SessionViewController  implements Controller,Observer,Initializable
         } catch (IOException e) {
             e.printStackTrace();
         }
-        pendu = new Pendu("hhhh");
-        pendu.StartSession(new Player("Hamza"),generator.getMotsSeance());
+        pendu = getPendu();
         session = pendu.getSessionActuel();
         pendu.addObserver(this);
         session.getPlayer().addObserver(this);
@@ -212,15 +217,7 @@ public class SessionViewController  implements Controller,Observer,Initializable
         }
     }
 
-    @Override
-    public void cancel() {
 
-    }
-
-    @Override
-    public void setMainApp(MainApp mainApp) {
-        this.manApp = mainApp;
-    }
 
     @Override
     public void update(Observable o, Object arg) {
