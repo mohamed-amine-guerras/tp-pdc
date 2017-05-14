@@ -47,6 +47,7 @@
                      <children>
                         <Region prefHeight="47.0" prefWidth="343.0" />
                         <JFXButton fx:id="previousButton" alignment="CENTER" layoutX="261.0" layoutY="358.0" onAction="#onPreviousButton" text="Précédent" />
+                        <JFXButton fx:id="homeButton" alignment="CENTER" onAction="#onHomeButton" text="Accueil" />
                      </children>
                   </HBox>
                </children>

@@ -30,9 +30,7 @@ import java.net.URL;
 import java.util.*;
 
 import static gui.HomeController.getPendu;
-import static gui.MainApp.CONFIRMATION_DIALOG_BOX;
-import static gui.MainApp.NEW_SESSION;
-import static gui.MainApp.SESSION_VIEW;
+import static gui.MainApp.*;
 
 /**
  * Created by hamza on 08/05/2017.
@@ -81,12 +79,31 @@ public class SessionViewController  implements Controller,Observer,Initializable
     private StackPane stackPane;
 
     @FXML AnchorPane anchorPane;
+
+    @FXML
+    private JFXButton homeButton;
+
     private ArrayList<JFXDialog> dialogs = new ArrayList<>();
 
     public void setPendu(Pendu pendu) {
         this.pendu = pendu;
     }
 
+
+
+
+    @FXML
+    void onHomeButton(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(Home));
+        try {
+            Parent parent = loader.load();
+            ((HomeController)loader.getController()).setGridPane(gridPane1);
+            gridPane1.add(parent,0,1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     void onPreviousButton(ActionEvent event) {
@@ -248,7 +265,6 @@ public class SessionViewController  implements Controller,Observer,Initializable
             updateWord();
         }else if(o instanceof Pendu) {
             showDialogBox("Fin de session","La session est terminé");
-            System.out.println(((Pendu) o).isSessionTerminee());
         }else if(o instanceof Mot){
             if((boolean)arg){
                 showDialogBox("BRAVO !","Mot terminé avec succes");
