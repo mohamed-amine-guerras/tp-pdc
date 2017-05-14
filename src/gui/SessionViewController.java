@@ -39,6 +39,7 @@ import static gui.MainApp.SESSION_VIEW;
  */
 public class SessionViewController  implements Controller,Observer,Initializable {
 
+    private MainApp manApp;
     private Mot mot;
     private Pendu pendu;
     private Session session;
@@ -88,12 +89,7 @@ public class SessionViewController  implements Controller,Observer,Initializable
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(SESSION_VIEW));
         boxesContainer.getStylesheets().add("resources/fxml/boxesStyles.css");
-        WordsGenerator generator = new WordsGenerator();
-        try {
-            generator.genererListeMotsSeance();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
         pendu = getPendu();
         session = pendu.getSessionActuel();
         pendu.addObserver(this);
@@ -216,7 +212,7 @@ public class SessionViewController  implements Controller,Observer,Initializable
             e.printStackTrace();
         }
     }
-
+    
 
 
     @Override

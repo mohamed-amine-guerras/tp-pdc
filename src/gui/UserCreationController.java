@@ -13,6 +13,7 @@ import javafx.scene.layout.GridPane;
 import java.io.IOException;
 
 import static gui.MainApp.NEW_SESSION;
+import static gui.MainApp.SESSION_VIEW;
 
 /**
  * Created by Amine on 05/05/2017.
@@ -48,10 +49,12 @@ public class UserCreationController {
                 pendu.AddPseudonyme(pseudonyme);
                 userLoginController.hideAll();
                 userLoginController.showDialogBox("Succés","Bienvenue "+pseudonyme+" dans le jeu!");
-                pendu.StartSession(new Player(pseudonyme),new WordsGenerator().getMotsSeance());
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource(NEW_SESSION));
+                WordsGenerator generator = new WordsGenerator();
                 try {
+                    generator.genererListeMotsSeance();
+                    pendu.StartSession(new Player(pseudonyme),generator.getMotsSeance());
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource(SESSION_VIEW));
                     Parent parent = loader.load();
                     ((Controller) loader.getController()).setPendu(pendu);
                     ((SessionViewController)loader.getController()).setGridPane1(gridPane);
@@ -59,6 +62,7 @@ public class UserCreationController {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+
             } catch (IOException|ClassNotFoundException e) {
                 userLoginController.showDialogBox("ERREUR","Erreur lors de l'écriture dans le fichier des psudonymes");
             }

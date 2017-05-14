@@ -91,10 +91,12 @@ public class UserLoginController implements Controller {
             try {
                 boolean exist = pendu.LoginCheck(pseudonyme);
                 if (exist){
-                    pendu.StartSession(pendu.getPlayer(pseudonyme),new WordsGenerator().getMotsSeance());
-                    FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource(NEW_SESSION));
+                    WordsGenerator generator = new WordsGenerator();
                     try {
+                        generator.genererListeMotsSeance();
+                        pendu.StartSession(pendu.getPlayer(pseudonyme),generator.getMotsSeance());
+                        FXMLLoader loader = new FXMLLoader();
+                        loader.setLocation(getClass().getResource(SESSION_VIEW));
                         Parent parent = loader.load();
                         ((Controller) loader.getController()).setPendu(pendu);
                         ((SessionViewController)loader.getController()).setGridPane1(gridPane);
@@ -102,6 +104,7 @@ public class UserLoginController implements Controller {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+
                 }
             } catch (LoginNotFoundException e) {
                 showDialogBox("ERREUR","Pseudonyme inexistant!");
