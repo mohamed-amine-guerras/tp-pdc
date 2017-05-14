@@ -69,6 +69,8 @@ public class SessionViewController  implements Controller,Observer,Initializable
 
     @FXML
     private StackPane stackPane;
+
+    @FXML AnchorPane anchorPane;
     private ArrayList<JFXDialog> dialogs = new ArrayList<>();
 
     public void setPendu(Pendu pendu) {
@@ -93,12 +95,8 @@ public class SessionViewController  implements Controller,Observer,Initializable
         session.getPlayer().addObserver(this);
         ((Observable)session).addObserver(this);
         pseudonymeLabel.setText(session.getPlayer().getPseudonyme());
-        mot = session.getMotActuel();
-        mot.addObserver(this);
         scoreLabel.setText("0");
-        indecationValueLable.setText(mot.getIndication().getValeur());
-        indecationTypeLabel.setText(mot.getIndication().toString());
-        genererCases();
+        updateWord();
     }
 
 
@@ -116,15 +114,25 @@ public class SessionViewController  implements Controller,Observer,Initializable
 
             if(box instanceof ZeroChance){
                 button.setId("zero-chance");
+                EventHandler<MouseEvent> mouseEvent = me->{
+                    if(me.getClickCount() >= 1) button.setId("zero-chance");
+                };
+
                 EventHandler<KeyEvent> keyEvent = ke->{
                     KeyCode kc = ke.getCode();
                     button.setText(String.valueOf(kc));
+                    button.setId("zero-chance");
                     button.setDisable(true);
                     pendu.VerificationCase(String.valueOf(kc).toLowerCase().charAt(0), hashMap.get(button));
                 };
+
                 button.setOnAction(e->{
+                    button.setId("on-action");
                     button.addEventFilter(KeyEvent.KEY_RELEASED,keyEvent);
+                    stackPane.addEventFilter(MouseEvent.MOUSE_PRESSED,mouseEvent);
                 });
+
+
                 button.removeEventFilter(KeyEvent.KEY_RELEASED,keyEvent);
 
                 boxesContainer.getChildren().add(button);
@@ -133,7 +141,6 @@ public class SessionViewController  implements Controller,Observer,Initializable
             }else if(box instanceof MultiChance){
                 EventHandler<MouseEvent> mouseEvent = me->{
                 if(me.getClickCount() >= 1) button.setId("multi-chance");
-                System.out.println(me.getClickCount());
             };
                 button.setId("multi-chance");
                 EventHandler<KeyEvent> keyEvent = ke->{
@@ -150,7 +157,6 @@ public class SessionViewController  implements Controller,Observer,Initializable
                     button.setId("on-action");
                     button.addEventFilter(KeyEvent.KEY_RELEASED,keyEvent);
                     stackPane.addEventFilter(MouseEvent.MOUSE_PRESSED,mouseEvent);
-
                 });
                 button.removeEventFilter(KeyEvent.KEY_RELEASED,keyEvent);
 
@@ -160,6 +166,8 @@ public class SessionViewController  implements Controller,Observer,Initializable
 
             else {
                 VBox vBox = new VBox();
+                vBox.getStyleClass().clear();
+                vBox.getStylesheets().add("resources/fxml/boxesStyles.css");
                 button.setId("proposition");
                 JFXNodesList propositions = new JFXNodesList();
                 propositions.getStylesheets().add("resources/fxml/boxesStyles.css");
@@ -179,7 +187,7 @@ public class SessionViewController  implements Controller,Observer,Initializable
                 }
                 vBox.getChildren().add(propositions);
                 vBox.setAlignment(Pos.CENTER);
-                propositions.setSpacing(10);
+                propositions.setSpacing(7);
                 boxesContainer.getChildren().add(vBox);
             }
         }
@@ -219,11 +227,7 @@ public class SessionViewController  implements Controller,Observer,Initializable
         if (o instanceof Player) {
             scoreLabel.setText(String.valueOf((int)arg));
         } else if (o instanceof Session){
-            mot = (Mot) arg;
-            mot.addObserver(this);
-            indecationValueLable.setText(mot.getIndication().getValeur());
-            indecationTypeLabel.setText(mot.getIndication().toString());
-            genererCases();
+            updateWord();
         }else if(o instanceof Pendu) {
             showDialogBox("Fin de session","La session est terminé");
         }else if(o instanceof Mot){
@@ -233,5 +237,14 @@ public class SessionViewController  implements Controller,Observer,Initializable
                 showDialogBox("DOMMAGE !","Le mot correct est : "+((Mot)o).getValeur());
             }
         }
+    }
+
+    private void updateWord(){
+        mot = session.getMotActuel();
+        mot.addObserver(this);
+        indecationValueLable.setText(mot.getIndication().getValeur());
+        indecationTypeLabel.setText(mot.getIndication().toString());
+        genererCases();
+
     }
 }

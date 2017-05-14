@@ -16,6 +16,6 @@ public class Definition extends Indication {
 
     @Override
     public String toString() {
-        return "Définition";
+        return "Définition :";
     }
 }

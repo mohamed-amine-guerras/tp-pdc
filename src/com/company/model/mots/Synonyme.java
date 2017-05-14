@@ -17,7 +17,7 @@ public class Synonyme extends Indication {
 
     @Override
     public String toString() {
-        return "Sysnonyme";
+        return "Sysnonyme :";
     }
 }
 
