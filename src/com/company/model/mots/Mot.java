@@ -3,6 +3,8 @@ package com.company.model.mots;
 import com.company.model.mots.cases.*;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
 
 import static java.lang.Math.abs;
@@ -10,7 +12,7 @@ import static java.lang.Math.abs;
 /**
  * Created by Amine on 17/04/2017.
  */
-public class Mot {
+public class Mot extends Observable{
 
     private final int NB_CASES_SANCTION = 5;
     private final int NB_CASES_LIMITES = 3;
@@ -23,6 +25,8 @@ public class Mot {
     private boolean motTerminee;
     private boolean motSanctionnabl;
     private int nbSuccess;
+    private boolean success = false;
+    private ArrayList<Observer> observers = new ArrayList<>();
 
     public boolean isMotSanctionnabl() {
         return motSanctionnabl;
@@ -43,6 +47,10 @@ public class Mot {
 
     public ArrayList<Case> getEnsemblesCases() {
         return ensemblesCases;
+    }
+
+    public String getValeur() {
+        return valeur;
     }
 
     /*
@@ -104,10 +112,18 @@ public class Mot {
         Case box = ensemblesCases.get(index);
         box.tentative(c);
         stop = ensemblesCases.get(index).isFail();//On s'arrete si le joueur échoue
+        if (stop) {
+            success = false;
+            System.out.println("Case fausse");
+            notifyObservers();
+        }
         if (box.isSuceces()) nbSuccess++;// si le joueur entre le bon carractère on incrémente le nombre de succes
         System.out.println("nbSuccess = " + nbSuccess);
         if (nbSuccess == ensemblesCases.size()) {// si le joueur réussi tous les case
             motTerminee = true; // donc le mot est terminé
+            System.out.println("Mot termine");
+            success = true;
+            notifyObservers();
             stop = true; // le joueur ne peut pas continuer
         }
         updateScore(box);
@@ -138,5 +154,22 @@ public class Mot {
 
     public Indication getIndication() {
         return indication;
+    }
+
+    @Override
+    public synchronized void addObserver(Observer o) {
+        observers.add(o);
+    }
+
+    @Override
+    public synchronized void deleteObserver(Observer o) {
+        super.deleteObserver(o);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer o : observers){
+            o.update((Observable) this,success);
+        }
     }
 }

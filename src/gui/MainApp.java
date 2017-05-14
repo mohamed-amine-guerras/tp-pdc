@@ -29,7 +29,6 @@ public class MainApp extends Application {
         Parent home = loader.load();
 
         ((Controller) loader.getController()).setMainApp(this);
-        ((SessionViewController)loader.getController()).setup();
 
         JFXDecorator decorator = new JFXDecorator(primaryStage,home);
         primaryStage.setTitle("Le Pendu");

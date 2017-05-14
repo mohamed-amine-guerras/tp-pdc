@@ -49,6 +49,7 @@ public class Pendu extends Observable{
     }
     public void EndSession(){
         sessionTerminee = true;
+        addHighScores();
         notifyObservers();
     }
 

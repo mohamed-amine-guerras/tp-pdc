@@ -1,7 +1,6 @@
 .boxe-class {
 	-fx-pref-width : 30px;
-	-fx-background-radius : 30px;
-	-fx-border-radius : 30px;
+
 	-fx-pref-height : 30px;
 	-fx-text-fill : white;
 	-fx-border-color : WHITE;
@@ -19,4 +18,8 @@
 
 #proposition{
 	-fx-background-color : #FDA901;
+}
+
+#on-action{
+    -fx-background-color : #FFFFFF;
 }
