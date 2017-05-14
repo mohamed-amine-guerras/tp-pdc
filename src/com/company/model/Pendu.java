@@ -18,6 +18,7 @@ public class Pendu extends Observable{
     private ArrayList<Observer> observers = new ArrayList<>();
 
     public TreeMap<Integer, String> getHighScores() {
+        InitializeHighScores();
         return highScores;
     }
 

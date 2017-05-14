@@ -1,16 +1,19 @@
 package com.company.model;
 
+import javafx.fxml.Initializable;
+
 import java.io.Serializable;
+import java.net.URL;
 import java.util.*;
 
 /**
  * Created by Amine on 17/04/2017.
  */
-public class Player extends Observable implements Serializable {
+public class Player extends Observable implements Serializable  {
     private String pseudonyme;
     private int meilleureScore;
-    private transient ArrayList<Integer> scores;
-    private transient int scoreActuel;
+    private  transient ArrayList<Integer> scores;
+    private  transient int scoreActuel;
     private ArrayList<Observer> observers = new ArrayList<>();
 
     public ArrayList<Integer> getScores() {
@@ -23,8 +26,7 @@ public class Player extends Observable implements Serializable {
 
     public Player(String pseudonyme) {
         this.pseudonyme = pseudonyme;
-        this.meilleureScore = 0;
-        this.scores = new ArrayList<>() ;
+        initialize();
     }
 
     public String getPseudonyme() {
@@ -32,6 +34,7 @@ public class Player extends Observable implements Serializable {
     }
 
     public Player() {
+        initialize();
     }
 
     public void setScoreActuel(int scoreActuel) {
@@ -55,5 +58,10 @@ public class Player extends Observable implements Serializable {
         for (Observer o : observers){
             o.update((Observable) this,scoreActuel);
         }
+    }
+
+    public void initialize() {
+        this.meilleureScore = 0;
+        this.scores = new ArrayList<>() ;
     }
 }

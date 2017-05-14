@@ -77,10 +77,10 @@ public class HighScoresController implements Initializable,Controller{
         /**
          * On importe les meilleures scores depuis la classe Pendu
          * */
-        NavigableMap<Integer, String> treeMap = getPendu().getHighScores().descendingMap();
+        NavigableMap<Integer, String> treeMap = getPendu().getHighScores();
         ObservableList<Score> Scores = FXCollections.observableArrayList();
         if(treeMap != null && !treeMap.isEmpty()){
-            for (Map.Entry<Integer,String> e:treeMap.entrySet()) {
+            for (Map.Entry<Integer,String> e:treeMap.descendingMap().entrySet()) {
                 Scores.add(new Score(e.getValue(),e.getKey()));
 
             }
