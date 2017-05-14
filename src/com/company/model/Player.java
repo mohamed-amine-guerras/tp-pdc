@@ -45,6 +45,7 @@ public class Player extends Observable implements Serializable  {
         scoreActuel = 0 ;
     }
     public void AddScore(){
+        if (scores == null) scores = new ArrayList<>();
         scores.add(scoreActuel);
     }
 
