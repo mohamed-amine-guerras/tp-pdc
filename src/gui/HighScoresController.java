@@ -20,6 +20,7 @@ import javafx.scene.layout.GridPane;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
+import java.util.NavigableMap;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
 
@@ -76,7 +77,7 @@ public class HighScoresController implements Initializable,Controller{
         /**
          * On importe les meilleures scores depuis la classe Pendu
          * */
-        TreeMap<Integer, String> treeMap = getPendu().getHighScores();
+        NavigableMap<Integer, String> treeMap = getPendu().getHighScores().descendingMap();
         ObservableList<Score> Scores = FXCollections.observableArrayList();
         if(treeMap != null && !treeMap.isEmpty()){
             for (Map.Entry<Integer,String> e:treeMap.entrySet()) {

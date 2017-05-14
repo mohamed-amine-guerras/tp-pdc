@@ -73,7 +73,7 @@ public class Pendu extends Observable{
     public void storeHighScores(){
         try {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(new File(highScoresFilePath)));
-            objectOutputStream.writeObject(highScores.descendingMap());
+            objectOutputStream.writeObject(highScores);
             objectOutputStream.close();
         } catch (IOException e) {
 

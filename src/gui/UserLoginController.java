@@ -123,7 +123,6 @@ public class UserLoginController implements Controller {
         loader.setLocation(getClass().getResource(Home));
         try {
             Parent parent = loader.load();
-            ((Controller) loader.getController()).setPendu(pendu);
             ((HomeController)loader.getController()).setGridPane(gridPane);
             gridPane.add(parent,0,1);
         } catch (IOException e) {

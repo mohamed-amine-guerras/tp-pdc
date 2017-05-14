@@ -41,7 +41,6 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </JFXButton>
-                        <JFXButton fx:id="previousButton" onAction="#onPreviousButton" text="Précédent" />
                         <JFXButton fx:id="connectButton" onAction="#onConnectButton" text="Connexion" />
                      </children>
                   </HBox>

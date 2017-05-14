@@ -34,7 +34,7 @@ public class MainApp extends Application {
         Parent home = loader.load();
         JFXDecorator decorator = new JFXDecorator(primaryStage,home);
         primaryStage.setTitle("Le Pendu");
-        primaryStage.setScene(new Scene(decorator, 800, 700));
+        primaryStage.setScene(new Scene(decorator, 600, 500));
         primary = primaryStage;
         primaryStage.show();
 
