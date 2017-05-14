@@ -229,7 +229,8 @@ public class SessionViewController  implements Controller,Observer,Initializable
         } else if (o instanceof Session){
             updateWord();
         }else if(o instanceof Pendu) {
-            showDialogBox("Fin de session","La session est terminé");
+            showDialogBox("Fin de session","La session est terminé\nVotre score est : "+scoreLabel.getText());
+            //TODO SWITCH WITH HOME
         }else if(o instanceof Mot){
             if((boolean)arg){
                 showDialogBox("BRAVO !","Mot terminé avec succes");
