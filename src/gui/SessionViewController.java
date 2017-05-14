@@ -20,6 +20,8 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -44,7 +46,9 @@ public class SessionViewController  implements Controller,Observer,Initializable
     private Pendu pendu;
     private Session session;
     private GridPane gridPane1;
-
+    private String[] imagePathes = {"resources/img/1.png","resources/img/2.png","resources/img/3.png",
+            "resources/img/4.png","resources/img/5.png","resources/img/6.png"};
+    private int image = 0;
     public void setGridPane1(GridPane gridPane1) {
         this.gridPane1 = gridPane1;
     }
@@ -78,6 +82,9 @@ public class SessionViewController  implements Controller,Observer,Initializable
     private StackPane stackPane;
 
     @FXML AnchorPane anchorPane;
+
+    @FXML
+    ImageView imageView;
     private ArrayList<JFXDialog> dialogs = new ArrayList<>();
 
     public void setPendu(Pendu pendu) {
@@ -194,7 +201,7 @@ public class SessionViewController  implements Controller,Observer,Initializable
                     propositions.addAnimatedNode(prop);
                 }
                 vBox.getChildren().add(propositions);
-                vBox.setAlignment(Pos.CENTER);
+                vBox.setAlignment(Pos.TOP_CENTER);
                 propositions.setSpacing(6);
                 boxesContainer.getChildren().add(vBox);
             }
@@ -235,10 +242,16 @@ public class SessionViewController  implements Controller,Observer,Initializable
                 showDialogBox("BRAVO !","Mot terminé avec succes");
             }else if(!(boolean)arg){
                 showDialogBox("DOMMAGE !","Le mot correct est : "+((Mot)o).getValeur());
+                draw();
             }
         }
     }
 
+    private void draw(){
+        Image image = new Image(imagePathes[this.image]);
+        this.image++;
+        imageView.setImage(image);
+    }
     private void updateWord(){
         mot = session.getMotActuel();
         mot.addObserver(this);
