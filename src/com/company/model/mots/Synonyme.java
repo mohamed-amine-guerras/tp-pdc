@@ -15,6 +15,9 @@ public class Synonyme extends Indication {
         return COEFITIENT;
     }
 
-
+    @Override
+    public String toString() {
+        return "Sysnonyme :";
+    }
 }
 

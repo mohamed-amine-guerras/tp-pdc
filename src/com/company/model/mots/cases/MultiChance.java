@@ -30,6 +30,7 @@ public class MultiChance extends Case implements Sanctionnable {
     @Override
     public boolean tentative(char lettre) {
         nbTentativesRestant--;
+        System.out.println("Reste = "+nbTentativesRestant);
         if(lettre == getValeur()){
             setScore(BONUS);
             setSuceces(true);

@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * Created by Amine on 17/04/2017.
  */
-public class Session {
+public class Session extends Observable {
     private Player player;
     private HashSet<Mot> mots;
     private Mot motActuel;
@@ -15,6 +15,7 @@ public class Session {
     private boolean sessionTerminee;
     private final int nombreEchecsMax = 6;
     private int nombreEchecsActuel;
+    private ArrayList<Observer> observers = new ArrayList<>();
 
     public Player getPlayer() {
         return player;
@@ -23,8 +24,8 @@ public class Session {
     public Session(Player player, HashSet<Mot> mots) {
         this.player = player;
         this.mots = mots;
-        this.motActuel = iterator.next();
         this.iterator = mots.iterator();
+        this.motActuel = iterator.next();
         this.sessionTerminee = false;
         this.nombreEchecsActuel = 0 ;
 
@@ -36,6 +37,10 @@ public class Session {
 
     public boolean isSessionTerminee() {
         return sessionTerminee;
+    }
+
+    public Mot getMotActuel() {
+        return motActuel;
     }
 
     public void VerificationCase(char c, int indexCase){
@@ -51,6 +56,7 @@ public class Session {
             }
             if (iterator.hasNext()){/** il reste des mots à deviner*/
                 motActuel = iterator.next();
+                notifyObservers();
             }
             else {/** le joueur a finie tous les mots*/
                 sessionTerminee = true;
@@ -69,8 +75,20 @@ public class Session {
         return player.getScores();
     }
 
+    @Override
+    public synchronized void addObserver(Observer o) {
+        observers.add(o);
+    }
 
+    @Override
+    public synchronized void deleteObserver(Observer o) {
+        super.deleteObserver(o);
+    }
 
-
-
+    @Override
+    public void notifyObservers() {
+        for (Observer o : observers){
+            o.update((Observable) this,motActuel);
+        }
+    }
 }
