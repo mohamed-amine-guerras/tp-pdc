@@ -35,6 +35,7 @@
                   </JFXTextField>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
+                        <JFXButton fx:id="previousButton" onAction="#onPreviousButton" text="Précédent" />
                         <JFXButton fx:id="signupButton" onAction="#onSignupButton" text="Créer un pseudonyme">
                            <HBox.margin>
                               <Insets right="10.0" />

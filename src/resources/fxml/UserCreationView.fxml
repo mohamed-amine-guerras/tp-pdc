@@ -25,6 +25,6 @@
             <Insets bottom="20.0" left="100.0" right="100.0" />
          </VBox.margin>
       </JFXTextField>
-      <JFXButton id="green-button" onAction="#onConfirmButton" text="CONFIRMER" />
+      <JFXButton id="blue-button" onAction="#onConfirmButton" text="CONFIRMER" />
    </children>
 </VBox>

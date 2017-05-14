@@ -27,7 +27,7 @@
     -fx-font-family: "Open Sans Regular";
 }
 .jfx-text-area {
-  -jfx-focus-color: #26A69A;
+  -jfx-focus-color: #2d4789;
   -fx-text-fill: white;
 }
 .scroll-pane {
@@ -66,8 +66,8 @@
 #unavailable {
   -fx-text-fill: #90A4AE;
 }
-#green-button {
-  -fx-text-fill: #00897B;
+#blue-button {
+  -fx-text-fill: #2d4789;
 }
 #statlabels {
   -fx-font-family: "Open Sans Extrabold";
@@ -189,7 +189,7 @@
 /* More button styles */
 
 #file-button {
-  -fx-graphic: url("../img/arrow_s.png");
+  -fx-graphic: url("/resources/img/arrow.png");
 }
 #form-button {
   -fx-text-fill: #26A696;
@@ -215,7 +215,7 @@
 /* Textfield and cbox styles */
 
 .jfx-text-field {
-  -jfx-focus-color: #26A696;
+  -jfx-focus-color: #ffffff;
 }
 .jfx-combo-box {
   -fx-text-fill: #26A696;

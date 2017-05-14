@@ -107,7 +107,6 @@ public class HighScoresController implements Initializable,Controller{
         loader.setLocation(getClass().getResource(Home));
         try {
             Parent parent = loader.load();
-            ((Controller) loader.getController()).setPendu(getPendu());
             ((HomeController)loader.getController()).setGridPane(gridPane);
             gridPane.add(parent,0,1);
         } catch (IOException e) {
