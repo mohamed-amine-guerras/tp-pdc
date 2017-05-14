@@ -12,6 +12,7 @@ import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
 
+import static gui.HomeController.getWordsFilePath;
 import static gui.MainApp.NEW_SESSION;
 import static gui.MainApp.SESSION_VIEW;
 
@@ -49,7 +50,7 @@ public class UserCreationController {
                 pendu.AddPseudonyme(pseudonyme);
                 userLoginController.hideAll();
                 userLoginController.showDialogBox("Succés","Bienvenue "+pseudonyme+" dans le jeu!");
-                WordsGenerator generator = new WordsGenerator();
+                WordsGenerator generator = new WordsGenerator(getWordsFilePath());
                 try {
                     generator.genererListeMotsSeance();
                     pendu.StartSession(new Player(pseudonyme),generator.getMotsSeance());
