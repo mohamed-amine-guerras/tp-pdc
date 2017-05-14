@@ -33,9 +33,6 @@ public class Player extends Observable implements Serializable  {
         return pseudonyme;
     }
 
-    public Player() {
-        initialize();
-    }
 
     public void setScoreActuel(int scoreActuel) {
         this.scoreActuel += scoreActuel;
