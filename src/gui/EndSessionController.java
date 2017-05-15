@@ -7,6 +7,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
@@ -25,6 +27,13 @@ public class EndSessionController implements Controller {
 
     public void setScore(String score) {
         this.score.setText(score);
+    }
+
+    @FXML
+    private ImageView imageView;
+
+    public void setImageView(String imagePath) {
+        this.imageView.setImage(new Image(imagePath));
     }
 
     @FXML

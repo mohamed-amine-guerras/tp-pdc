@@ -45,12 +45,14 @@ public class SessionViewController  implements Controller,Observer,Initializable
     private Session session;
     private GridPane gridPane1;
     private String[] imagePathes = {"resources/img/1.png","resources/img/2.png","resources/img/3.png",
-            "resources/img/4.png","resources/img/5.png","resources/img/6.png"};
+            "resources/img/4.png","resources/img/5.png","resources/img/6.png","resources/img/7.png"};
     private int image = 0;
 
     public void setGridPane1(GridPane gridPane1) {
         this.gridPane1 = gridPane1;
     }
+
+
 
     @FXML
     private JFXButton previousButton;
@@ -276,7 +278,9 @@ public class SessionViewController  implements Controller,Observer,Initializable
             if(mot.isCorrect()){
                 showDialogBox("BRAVO !","Mot terminé avec succes");
             }else{
-                showDialogBox("DOMMAGE !","Le mot correct est : "+mot.getValeur());
+                showDialogBox("DOMMAGE !","Le mot correct est : "+mot.getValeur()+
+                        "\nil vous reste "+((pendu.getSessionActuel().getNombreEchecsActuel() < 5)
+                        ? (6-pendu.getSessionActuel().getNombreEchecsActuel())+" tentatives" : "une seule tentative"));
                 draw();
             }
             updateWord();
@@ -286,6 +290,7 @@ public class SessionViewController  implements Controller,Observer,Initializable
             try {
                 Parent parent = loader.load();
                 ((EndSessionController)loader.getController()).setGridPane(gridPane1);
+                ((EndSessionController)loader.getController()).setImageView(((image > 0) ? imagePathes[image-1] : imagePathes[6]));
                 ((Controller)loader.getController()).setPendu(pendu);
                 ((EndSessionController)loader.getController()).setScore(scoreLabel.getText());
                 gridPane1.add(parent,0,1);
