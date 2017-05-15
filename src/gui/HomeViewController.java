@@ -23,6 +23,11 @@ public class HomeViewController implements Initializable{
     @FXML
     private ImageView image;
 
+    /**
+     * Charger la scene d'accueil
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         FXMLLoader loader = new FXMLLoader();

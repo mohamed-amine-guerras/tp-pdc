@@ -35,10 +35,9 @@ public class Session extends Observable {
 
     }
 
-    public Session() {
-
+    public ArrayList<Integer> getScores(){
+        return player.getScores();
     }
-
     public boolean isSessionTerminee() {
         return sessionTerminee;
     }
@@ -47,6 +46,11 @@ public class Session extends Observable {
         return motActuel;
     }
 
+    /**
+     * Vérifie si le caractère ecrit par le joueur est correcte ou pas
+     * @param c
+     * @param indexCase
+     */
     public void VerificationCase(char c, int indexCase){
         if (motActuel.Verification(c,indexCase) == false){ /**la méthode Verification renvoie faux si le joueur ne peut pas continuer  */
             player.setScoreActuel(motActuel.getScore());   /**  ou le joueur a finie le mot en entier*/
@@ -75,9 +79,9 @@ public class Session extends Observable {
 
     }
 
-    public ArrayList<Integer> getScores(){
-        return player.getScores();
-    }
+
+    /** Des méthodes de notification (principalement utilisées avec l'interface)*/
+
 
     @Override
     public synchronized void addObserver(Observer o) {

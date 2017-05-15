@@ -60,6 +60,10 @@ public class UserLoginController implements Controller {
     private JFXDialog dialog;
 
 
+    /**
+     * Création d'un nouveau joueur
+     * @param event
+     */
     @FXML
     void onSignupButton(ActionEvent event) {
         JFXDialog dialog = new JFXDialog();
@@ -81,6 +85,10 @@ public class UserLoginController implements Controller {
 
     }
 
+    /**
+     * Se connecter avec un pseudonyme existant
+     * @param event
+     */
     @FXML
     void onConnectButton(ActionEvent event) {
         String pseudonyme = userField.getText();
@@ -118,6 +126,10 @@ public class UserLoginController implements Controller {
 
     }
 
+    /**
+     * Aller à l'accueil
+     * @param event
+     */
     @FXML
     void onPreviousButton(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader();
@@ -132,6 +144,11 @@ public class UserLoginController implements Controller {
 
     }
 
+    /**
+     * Afficher une boite de dialogue avec un titre et un contenu
+     * @param title
+     * @param content
+     */
     public void showDialogBox(String title,String content){
         JFXDialog dialog = new JFXDialog();
         dialogs.add(dialog);
@@ -149,14 +166,15 @@ public class UserLoginController implements Controller {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Fermer toutes les boites de dialogue
+     */
     public void hideAll(){
         for (JFXDialog d:dialogs) {
             d.close();
 
         }
-    }
-    public void setScene(String sceneName){
-
     }
 
 }

@@ -66,6 +66,10 @@ public class HomeController implements Initializable {
     @FXML
     private JFXButton resumeSessionButton;
 
+    /**
+     * Ouvrir une nouvelle session
+     * @param event
+     */
     @FXML
     void onNewSessionButton(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader();
@@ -81,7 +85,10 @@ public class HomeController implements Initializable {
         }
 
 
-
+    /**
+     * Visualiser les meilleurs scores
+     * @param event
+     */
     @FXML
     void onHighScoreButton(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader();
@@ -95,6 +102,10 @@ public class HomeController implements Initializable {
         }
         }
 
+    /**
+     * Configurer les options
+     * @param event
+     */
     @FXML
     void onOptionsButton(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader();
@@ -108,19 +119,26 @@ public class HomeController implements Initializable {
         }
         }
 
+    /**
+     * Quitter le jeu
+     * @param event
+     */
     @FXML
     void onExitButton(ActionEvent event) {
 
         ((Stage)exitButton.getScene().getWindow()).close();
         }
 
-
+    /**
+     * Modifier l'emplacement du fichier des mots
+     * @param wordsFilePath
+     */
     public static void setWordsFilePath(String wordsFilePath){
         if (wordsFilePath != null){
             ObjectOutputStream objectOutputStream = null;
-            try {
+            try { /** ouvrir le fichier contenant l'emplacement du fichier des mots*/
                 objectOutputStream = new ObjectOutputStream(new FileOutputStream(new File("wordsPath.dat")));
-                objectOutputStream.writeObject(wordsFilePath);
+                objectOutputStream.writeObject(wordsFilePath); /** Mis à jour*/
                 objectOutputStream.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -129,6 +147,12 @@ public class HomeController implements Initializable {
         }
 
     }
+
+    /**
+     * Initialize le chemin vers le fichiers des mots
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ObjectInputStream objectInputStream = null;

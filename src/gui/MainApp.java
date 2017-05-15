@@ -13,6 +13,9 @@ import java.io.IOException;
 
 public class MainApp extends Application {
 
+    /**
+     * Les différentes scenes du jeu
+     */
     static String HOME = "/resources/fxml/HomeView.fxml";
     static String Home = "/resources/fxml/Home.fxml";
     static final String NEW_SESSION = "/resources/fxml/UserLoginView.fxml";

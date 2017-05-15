@@ -39,6 +39,10 @@ public class OptionsController {
     @FXML
     private JFXTextField textField;
 
+    /**
+     * Ouvrir le selectionneur des fichier
+     * @param event
+     */
     @FXML
     void onBrowsButton(ActionEvent event) {
         FileChooser chooser = new FileChooser();
@@ -52,6 +56,10 @@ public class OptionsController {
     }
 
 
+    /**
+     * Retourner à l'accueil
+     * @param event
+     */
     @FXML
     void onPreviousButton(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader();
@@ -66,6 +74,10 @@ public class OptionsController {
 
     }
 
+    /**
+     * Modifier l'emplacement du fichier des mots
+     * @param event
+     */
     @FXML
     void onExecuteButton(ActionEvent event) {
         setWordsFilePath(textField.getText());

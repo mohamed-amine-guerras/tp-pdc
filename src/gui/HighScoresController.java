@@ -31,7 +31,7 @@ import static gui.MainApp.Home;
 /**
  * Created by Amine on 12/05/2017.
  */
-public class HighScoresController implements Initializable,Controller{
+public class HighScoresController implements Initializable{
 
     private GridPane gridPane;
 
@@ -46,7 +46,11 @@ public class HighScoresController implements Initializable,Controller{
     @FXML
     private JFXTreeTableView<Score> highScoresList;
 
-
+    /**
+     * Initialize le JFXTreeTableView pour l'affichage des meilleurs scores
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -102,7 +106,10 @@ public class HighScoresController implements Initializable,Controller{
     }
 
 
-
+    /**
+     * Retourner à l'accueil
+     * @param event
+     */
     @FXML
     void onPreviousButton(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader();
@@ -117,9 +124,5 @@ public class HighScoresController implements Initializable,Controller{
     }
 
 
-    @Override
-    public void setPendu(Pendu pendu) {
 
-
-    }
 }

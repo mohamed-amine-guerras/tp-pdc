@@ -25,6 +25,15 @@ public class EndSessionController implements Controller {
     private Pendu pendu;
     private GridPane gridPane;
 
+    @Override
+    public void setPendu(Pendu pendu) {
+        this.pendu = pendu;
+
+    }
+
+    public void setGridPane(GridPane gridPane) {
+        this.gridPane = gridPane;
+    }
     public void setScore(String score) {
         this.score.setText(score);
     }
@@ -45,6 +54,10 @@ public class EndSessionController implements Controller {
     @FXML
     private JFXButton homeButton;
 
+    /**
+     * Rejouer une nouvelle session
+     * @param event
+     */
     @FXML
     void onReplayButton(ActionEvent event) {
         WordsGenerator generator = new WordsGenerator(getWordsFilePath());
@@ -63,7 +76,11 @@ public class EndSessionController implements Controller {
         }
     }
 
-        @FXML
+    /**
+     * Aller à l'accueil
+     * @param event
+     */
+    @FXML
     void onHomeButton(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(Home));
@@ -78,14 +95,4 @@ public class EndSessionController implements Controller {
     }
 
 
-
-    @Override
-    public void setPendu(Pendu pendu) {
-        this.pendu = pendu;
-
-    }
-
-    public void setGridPane(GridPane gridPane) {
-        this.gridPane = gridPane;
-    }
 }

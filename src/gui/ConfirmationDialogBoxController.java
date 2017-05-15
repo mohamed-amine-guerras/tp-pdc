@@ -6,6 +6,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 
+/**
+ * Cette classe représente une boite de dialogue
+ */
 public class ConfirmationDialogBoxController {
 
     @FXML
@@ -30,6 +33,11 @@ public class ConfirmationDialogBoxController {
         this.dialog = dialog;
     }
 
+    /**
+     * Afficher une boite de dialogue
+     * @param title
+     * @param content
+     */
     void setDialog(String title, String content) {
         this.title.setText(title);
         this.content.setText(content);

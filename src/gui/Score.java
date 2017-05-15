@@ -9,6 +9,10 @@ import javafx.beans.property.StringProperty;
 /**
  * Created by Amine on 12/05/2017.
  */
+
+/**
+ * C'est une classe utilisée pour l'affichage des meuilleurs scores
+ */
 public class Score extends RecursiveTreeObject<Score> {
     StringProperty player;
     StringProperty score;

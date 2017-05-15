@@ -14,15 +14,22 @@ public class LoginChecker {
     public LoginChecker(String usersFile) {
         this.usersFile = usersFile;
     }
+
     /**
      * Cette méthode vérifie si un joueur existe ou pas dans le fichier des joueurs
-     * **/
+     * @param pseudonyme
+     * @return
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public boolean Find(String pseudonyme) throws IOException, ClassNotFoundException {
 
         InitializeUsersHashMap();
 
         return usersHashMap.containsKey(pseudonyme);
     }
+
+
     /**
      * Cette méthode initialise la HashMap qui contient les joueurs à partir du fichier des joueurs
      * **/
@@ -34,20 +41,27 @@ public class LoginChecker {
             usersHashMap = new HashMap<>();
         }
     }
+
+
     /**
-    * *Cette méthode ajoute un joueur au fichier des joueurs
-     * */
-    public void AddPlayer(Player player) throws IOException, ClassNotFoundException {
+     * Cette méthode ajoute un joueur au fichier des joueurs
+     * @param player
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    public void AddPlayer(Player player) throws IOException, ClassNotFoundException, IllegalNicknameException {
+        String lettres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        if (!lettres.contains(player.getPseudonyme().toUpperCase().charAt(0)+"")) throw new IllegalNicknameException();/**si le pseudonyme ne commence pas par une lettre*/
         InitializeUsersHashMap();
        if (usersHashMap.containsKey(player.getPseudonyme())) {
             usersHashMap.remove(player.getPseudonyme());
-        }
+       }
             usersHashMap.put(player.getPseudonyme(), player);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File(usersFile))));
             objectOutputStream.writeObject(usersHashMap);
             objectOutputStream.close();
 
-        }
+    }
 
 
         public Player getPlayer(String pseudonyme){
@@ -55,11 +69,11 @@ public class LoginChecker {
         InitializeUsersHashMap();
         return (Player) usersHashMap.get(pseudonyme);
 
-        }
+    }
 
 
 
-        }
+}
 
 
 
