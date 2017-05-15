@@ -11,15 +11,13 @@ public class ZeroChance extends Case {
     }
 
     @Override
-    public boolean tentative(char lettre) {
+    public void tentative(char lettre) {//Voir MultiChance
         if(lettre == getValeur()){
             setScore(BONUS);
             setSuceces(true);
             setFail(false);
         }
         else setFail(true);
-        System.out.println(isSuceces());
-        return isFail();
     }
 
     @Override

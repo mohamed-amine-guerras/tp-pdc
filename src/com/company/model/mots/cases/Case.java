@@ -5,9 +5,9 @@ package com.company.model.mots.cases;
  */
 public abstract class Case {
 
-    private char valeur;
-    private int score = 0;
-    private boolean suceces = false;
+    private char valeur; // La valeur de la case
+    private int score = 0; // Le score de la case
+    private boolean suceces = false; //Indique si le termine avec succes
     private boolean fail = false;
 
     public Case(char valeur) {
@@ -41,7 +41,11 @@ public abstract class Case {
 
     protected void setScore(int score){this.score = score;}
 
-    public abstract boolean tentative(char lettre);
+
+    /*
+    * Verrifier la tentative sur une case
+     */
+    public abstract void tentative(char lettre);
 
     @Override
     public String toString() {

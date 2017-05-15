@@ -58,11 +58,10 @@ public class Mot extends Observable{
     }
 
     /*
-     *Calcule le score obtenu par l'ensemble de tentative sur les cases
+     *Met à jour le score d'un a l'issue d'un tentative
      */
 
     private void updateScore(Case box){
-        this.score = 0 ;
         this.score = indication.getCoefition()*box.getScore();
         if(ensmblesCasesSanctionnables.contains(box) && !box.isSuceces()) this.score = this.score - ((Sanctionnable)box).getMalus(motSanctionnabl);
     }
@@ -70,24 +69,24 @@ public class Mot extends Observable{
     * Générer les cases formant les mots et met à jours l'attribut motSanctionnabl si nécessaire
      */
     public void genererCases(){
-        char[] lettre = this.valeur.toCharArray();
+        char[] lettre = this.valeur.toCharArray();// On convertit le String en un tableau de carractères
         int i = 0;
         int choix;
         int nbCasesLimite = 0;
         Case box = null;
         Random random = new Random();
         boolean finished = false;
-        while (!finished){
-            choix = abs(random.nextInt())%3;
+        while (!finished){// Tant que les carractères ne sont pas converti en case
+            choix = abs(random.nextInt())%3;// On choisis le type de la case à instancier selon le résultat
             switch (choix){
                 case 0 :
                     box = new MultiChance(lettre[i]);
                     ensemblesCases.add(box);
                     i++;
-                    this.ensmblesCasesSanctionnables.add((Sanctionnable)box);
+                    this.ensmblesCasesSanctionnables.add((Sanctionnable)box); // Vu que c'est une case sanctionnalbe
                     break;
                 case 1 :
-                  if(nbCasesLimite < NB_CASES_LIMITES){
+                  if(nbCasesLimite < NB_CASES_LIMITES){ // On controle la limite de nombre des cases avant d'insatncier
                       box = new Proposition(lettre[i]);
                       ensemblesCases.add(box);
                       nbCasesLimite++;
@@ -107,11 +106,17 @@ public class Mot extends Observable{
         }
         if (i == lettre.length) {
                 finished = true;
-                if(ensmblesCasesSanctionnables.size()>NB_CASES_SANCTION) motSanctionnabl = true;
+                if(ensmblesCasesSanctionnables.size()>NB_CASES_SANCTION) motSanctionnabl = true; // le mot est sanctionnable si la condition est verrifié
         }
     }
     }
 
+    /**
+     * Verrifie la tentative de l'utilisateur sur une case choisis du mot
+     * @param c le carractère entré pa l'utilisateur
+     * @param index le rang de la case dans le mot
+     * @return false si le joueur ne peut pas continuer
+     */
     public boolean Verification(char c, int index) {
         boolean stop = false;
         Case box = ensemblesCases.get(index);
