@@ -20,6 +20,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -42,6 +44,9 @@ public class SessionViewController  implements Controller,Observer,Initializable
     private Pendu pendu;
     private Session session;
     private GridPane gridPane1;
+    private String[] imagePathes = {"resources/img/1.png","resources/img/2.png","resources/img/3.png",
+            "resources/img/4.png","resources/img/5.png","resources/img/6.png"};
+    private int image = 0;
 
     public void setGridPane1(GridPane gridPane1) {
         this.gridPane1 = gridPane1;
@@ -50,6 +55,8 @@ public class SessionViewController  implements Controller,Observer,Initializable
     @FXML
     private JFXButton previousButton;
 
+    @FXML
+    private ImageView imageView;
     @FXML
     private GridPane gridPane;
 
@@ -82,6 +89,9 @@ public class SessionViewController  implements Controller,Observer,Initializable
 
     @FXML
     private JFXButton homeButton;
+
+    @FXML
+    private Label highScoreLabel;
 
     private ArrayList<JFXDialog> dialogs = new ArrayList<>();
 
@@ -127,11 +137,13 @@ public class SessionViewController  implements Controller,Observer,Initializable
         boxesContainer.getStylesheets().add("resources/fxml/boxesStyles.css");
         pendu = getPendu();
         session = pendu.getSessionActuel();
+        showDialogBox("Bienvenue","Bienvenue dans le jeu "+session.getPlayer().getPseudonyme());
         pendu.addObserver(this);
         session.getPlayer().addObserver(this);
         ((Observable)session).addObserver(this);
         pseudonymeLabel.setText(session.getPlayer().getPseudonyme());
         scoreLabel.setText("0");
+        highScoreLabel.setText(String.valueOf(session.getPlayer().getMeilleureScore()));
         updateWord();
     }
 
@@ -210,7 +222,6 @@ public class SessionViewController  implements Controller,Observer,Initializable
                 propositions.addAnimatedNode(button);
 
                 button.setOnAction(e->{
-                    button.setId("on-action");
                     propositions.animateList();
                 });
                 for(Character c : ((Proposition)box).getProposition()){
@@ -262,16 +273,38 @@ public class SessionViewController  implements Controller,Observer,Initializable
         if (o instanceof Player) {
             scoreLabel.setText(String.valueOf((int)arg));
         } else if (o instanceof Session){
+            if(mot.isCorrect()){
+                showDialogBox("BRAVO !","Mot terminé avec succes");
+            }else{
+                showDialogBox("DOMMAGE !","Le mot correct est : "+mot.getValeur());
+                draw();
+            }
             updateWord();
         }else if(o instanceof Pendu) {
-            showDialogBox("Fin de session","La session est terminé");
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(END_SESSION));
+            try {
+                Parent parent = loader.load();
+                ((EndSessionController)loader.getController()).setGridPane(gridPane1);
+                ((Controller)loader.getController()).setPendu(pendu);
+                ((EndSessionController)loader.getController()).setScore(scoreLabel.getText());
+                gridPane1.add(parent,0,1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }else if(o instanceof Mot){
             if((boolean)arg){
-                showDialogBox("BRAVO !","Mot terminé avec succes");
+
             }else if(!(boolean)arg){
-                showDialogBox("DOMMAGE !","Le mot correct est : "+((Mot)o).getValeur());
+
             }
         }
+    }
+
+    private void draw(){
+        Image image = new Image(imagePathes[this.image]);
+        this.image++;
+        imageView.setImage(image);
     }
 
     private void updateWord(){

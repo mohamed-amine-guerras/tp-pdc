@@ -56,11 +56,20 @@ public class Pendu extends Observable{
         sessionTerminee = true;
         addHighScores();
         notifyObservers();
+        try {
+            AddPlayer(sessionActuel.getPlayer());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
 
-    public void AddPseudonyme(String pseudonyme) throws IOException, ClassNotFoundException {
-       new LoginChecker(UsersFilePath).Addpseudonyme(pseudonyme);
+    public void AddPlayer(Player player) throws IOException, ClassNotFoundException {
+       new LoginChecker(UsersFilePath).AddPlayer(player);
     }
     public void InitializeHighScores(){
         try {

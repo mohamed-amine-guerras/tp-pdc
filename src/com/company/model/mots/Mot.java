@@ -25,7 +25,7 @@ public class Mot extends Observable{
     private boolean motTerminee;
     private boolean motSanctionnabl;
     private int nbSuccess;
-    private boolean success = false;
+    private boolean correct = false;
     private ArrayList<Observer> observers = new ArrayList<>();
 
     public boolean isMotSanctionnabl() {
@@ -35,6 +35,10 @@ public class Mot extends Observable{
     public Mot(Indication indication, String valeur) {
         this.indication = indication;
         this.valeur = valeur;
+    }
+
+    public boolean isCorrect() {
+        return correct;
     }
 
     public boolean isMotTerminee() {
@@ -58,6 +62,7 @@ public class Mot extends Observable{
      */
 
     private void updateScore(Case box){
+        this.score = 0 ;
         this.score = indication.getCoefition()*box.getScore();
         if(ensmblesCasesSanctionnables.contains(box) && !box.isSuceces()) this.score = this.score - ((Sanctionnable)box).getMalus(motSanctionnabl);
     }
@@ -113,7 +118,7 @@ public class Mot extends Observable{
         box.tentative(c);
         stop = ensemblesCases.get(index).isFail();//On s'arrete si le joueur échoue
         if (stop) {
-            success = false;
+            correct = false;
             System.out.println("Case fausse");
             notifyObservers();
         }
@@ -122,7 +127,7 @@ public class Mot extends Observable{
         if (nbSuccess == ensemblesCases.size()) {// si le joueur réussi tous les case
             motTerminee = true; // donc le mot est terminé
             System.out.println("Mot termine");
-            success = true;
+            correct = true;
             notifyObservers();
             stop = true; // le joueur ne peut pas continuer
         }
@@ -169,7 +174,7 @@ public class Mot extends Observable{
     @Override
     public void notifyObservers() {
         for (Observer o : observers){
-            o.update((Observable) this,success);
+            o.update((Observable) this,correct);
         }
     }
 }

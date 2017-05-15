@@ -19,10 +19,10 @@ import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.NavigableMap;
 import java.util.ResourceBundle;
-import java.util.TreeMap;
 
 import static gui.HomeController.getPendu;
 import static gui.MainApp.Home;
@@ -80,9 +80,10 @@ public class HighScoresController implements Initializable,Controller{
         NavigableMap<Integer, String> treeMap = getPendu().getHighScores();
         ObservableList<Score> Scores = FXCollections.observableArrayList();
         if(treeMap != null && !treeMap.isEmpty()){
-            for (Map.Entry<Integer,String> e:treeMap.descendingMap().entrySet()) {
+            Iterator<Map.Entry<Integer,String>> iterator = treeMap.descendingMap().entrySet().iterator();
+            for (int i = 0 ; i < Math.min(10,treeMap.size()); i++){
+                Map.Entry<Integer,String> e = iterator.next();
                 Scores.add(new Score(e.getValue(),e.getKey()));
-
             }
         }
 

@@ -14,7 +14,11 @@ public class Player extends Observable implements Serializable  {
     private int meilleureScore;
     private  transient ArrayList<Integer> scores;
     private  transient int scoreActuel;
-    private ArrayList<Observer> observers = new ArrayList<>();
+    private transient ArrayList<Observer> observers = new ArrayList<>();
+
+    public int getMeilleureScore() {
+        return meilleureScore;
+    }
 
     public ArrayList<Integer> getScores() {
         return scores;
@@ -43,11 +47,13 @@ public class Player extends Observable implements Serializable  {
     }
     public void AddScore(){
         if (scores == null) scores = new ArrayList<>();
+        if (scoreActuel > meilleureScore) meilleureScore = scoreActuel;
         scores.add(scoreActuel);
     }
 
     @Override
     public synchronized void addObserver(Observer o) {
+        if (observers == null) observers = new ArrayList<>();
         observers.add(o);
     }
 

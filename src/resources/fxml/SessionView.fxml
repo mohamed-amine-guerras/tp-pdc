@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
@@ -21,12 +22,14 @@
                   <HBox alignment="CENTER" prefHeight="159.0" prefWidth="600.0">
                      <children>
                         <Label fx:id="pseudonymeLabel1" prefHeight="47.0" prefWidth="114.0" text="Pseudonyme : " />
-                        <Label fx:id="pseudonymeLabel" prefHeight="101.0" prefWidth="184.0" text="Label" />
+                        <Label fx:id="pseudonymeLabel" prefHeight="35.0" prefWidth="157.0" text="Label" />
                         <Label fx:id="pseudonymeLabel2" prefHeight="65.0" prefWidth="54.0" text="Score : " />
                         <Label fx:id="scoreLabel" prefHeight="65.0" prefWidth="87.0" text="Label" />
+                        <Label fx:id="pseudonymeLabel21" layoutX="389.0" layoutY="10.0" prefHeight="35.0" prefWidth="108.0" text="Meilleure score :" />
+                        <Label fx:id="highScoreLabel" layoutX="443.0" layoutY="10.0" prefHeight="65.0" prefWidth="87.0" text="Label" />
                      </children>
                   </HBox>
-                  <HBox alignment="BOTTOM_CENTER" prefHeight="172.0" prefWidth="600.0">
+                  <HBox alignment="CENTER" prefHeight="172.0" prefWidth="600.0">
                      <children>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fe0101" height="20.0" stroke="BLACK" strokeType="INSIDE" width="23.0" />
                         <Label prefHeight="17.0" prefWidth="147.0" text="   Zero Chance" />
@@ -36,11 +39,18 @@
                         <Label prefHeight="17.0" prefWidth="147.0" text="   Propositions" />
                      </children>
                   </HBox>
-                  <HBox fx:id="boxesContainer" alignment="CENTER" prefHeight="453.0" prefWidth="600.0" />
+                  <HBox alignment="TOP_CENTER">
+                     <children>
+                        <HBox fx:id="boxesContainer" alignment="CENTER" prefHeight="453.0" prefWidth="600.0" />
+                        <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </HBox>
                   <HBox alignment="CENTER" prefHeight="102.0" prefWidth="600.0">
                      <children>
+                        <Region layoutX="457.0" layoutY="10.0" prefHeight="17.0" prefWidth="152.0" />
                         <Label fx:id="indecationTypeLabel" prefHeight="17.0" prefWidth="153.0" text="Label" />
-                        <Label fx:id="indecationValueLable" prefHeight="25.0" prefWidth="231.0" text="Label" />
+                        <Label fx:id="indecationValueLable" prefHeight="17.0" prefWidth="412.0" text="Label" />
+                        <Region prefHeight="17.0" prefWidth="55.0" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER">

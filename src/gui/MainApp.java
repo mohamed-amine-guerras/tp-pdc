@@ -20,6 +20,7 @@ public class MainApp extends Application {
     static final String HIGH_SCORES = "/resources/fxml/HighScoresView.fxml";
     static final String OPTIONS = "/resources/fxml/OptionsView.fxml";
     static final String SESSION_VIEW = "/resources/fxml/SessionView.fxml";
+    static final String END_SESSION = "/resources/fxml/EndSessionView.fxml";
 
 
     public static void main(String[] args) {

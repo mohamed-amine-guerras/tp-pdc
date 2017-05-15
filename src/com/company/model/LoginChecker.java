@@ -8,7 +8,7 @@ import java.util.HashMap;
  */
 public class LoginChecker {
     private String usersFile;
-    private HashMap<String,Player> usersHashMap;
+    private HashMap<String,Player> usersHashMap ;
     public LoginChecker(){}
 
     public LoginChecker(String usersFile) {
@@ -37,15 +37,16 @@ public class LoginChecker {
     /**
     * *Cette méthode ajoute un joueur au fichier des joueurs
      * */
-    public void Addpseudonyme(String pseudonyme) throws IOException, ClassNotFoundException {
-        Player player = new Player(pseudonyme);
+    public void AddPlayer(Player player) throws IOException, ClassNotFoundException {
         InitializeUsersHashMap();
-        if (!usersHashMap.containsKey(pseudonyme)) {
+       if (usersHashMap.containsKey(player.getPseudonyme())) {
+            usersHashMap.remove(player.getPseudonyme());
+        }
             usersHashMap.put(player.getPseudonyme(), player);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(new File(usersFile))));
             objectOutputStream.writeObject(usersHashMap);
             objectOutputStream.close();
-            }
+
         }
 
 

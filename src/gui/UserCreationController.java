@@ -13,7 +13,6 @@ import javafx.scene.layout.GridPane;
 import java.io.IOException;
 
 import static gui.HomeController.getWordsFilePath;
-import static gui.MainApp.NEW_SESSION;
 import static gui.MainApp.SESSION_VIEW;
 
 /**
@@ -42,30 +41,37 @@ public class UserCreationController {
     @FXML
     void onConfirmButton(ActionEvent event) {
         String pseudonyme = userField.getText();
+        String lettres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         if (pseudonyme == null || pseudonyme.isEmpty()){
             userLoginController.showDialogBox("ERREUR","Veuillez introduire un pseudonyme!");
         }
         else {
-            try {
-                pendu.AddPseudonyme(pseudonyme);
-                userLoginController.hideAll();
-                userLoginController.showDialogBox("Succés","Bienvenue "+pseudonyme+" dans le jeu!");
-                WordsGenerator generator = new WordsGenerator(getWordsFilePath());
-                try {
-                    generator.genererListeMotsSeance();
-                    pendu.StartSession(new Player(pseudonyme),generator.getMotsSeance());
-                    FXMLLoader loader = new FXMLLoader();
-                    loader.setLocation(getClass().getResource(SESSION_VIEW));
-                    Parent parent = loader.load();
-                    ((Controller) loader.getController()).setPendu(pendu);
-                    ((SessionViewController)loader.getController()).setGridPane1(gridPane);
-                    gridPane.add(parent,0,1);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            if (!lettres.contains(pseudonyme.toUpperCase().charAt(0)+"")){
+                userLoginController.showDialogBox("ERREUR","Le pseudonyme doit commencer par une lettre!");
 
-            } catch (IOException|ClassNotFoundException e) {
-                userLoginController.showDialogBox("ERREUR","Erreur lors de l'écriture dans le fichier des psudonymes");
+            }
+            else {
+                try {
+                    pendu.AddPlayer(new Player(pseudonyme));
+                    userLoginController.hideAll();
+                    WordsGenerator generator = new WordsGenerator(getWordsFilePath());
+                    try {
+                        generator.genererListeMotsSeance();
+                        pendu.StartSession(new Player(pseudonyme), generator.getMotsSeance());
+                        FXMLLoader loader = new FXMLLoader();
+                        loader.setLocation(getClass().getResource(SESSION_VIEW));
+                        Parent parent = loader.load();
+                        ((Controller) loader.getController()).setPendu(pendu);
+                        ((SessionViewController) loader.getController()).setGridPane1(gridPane);
+                        gridPane.add(parent, 0, 1);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+
+                } catch (IOException | ClassNotFoundException e) {
+                    userLoginController.showDialogBox("ERREUR", "Erreur lors de l'écriture dans le fichier des psudonymes");
+                }
             }
         }
 
