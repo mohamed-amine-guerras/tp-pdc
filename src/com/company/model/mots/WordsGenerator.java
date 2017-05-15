@@ -24,13 +24,13 @@ public class WordsGenerator {
     private void readWordsFile() throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new FileReader(wordsFilePath));
         String ligne = bufferedReader.readLine();
-        while (ligne != null){
-            StringTokenizer tokenizer = new StringTokenizer(ligne,";");
-            String type = tokenizer.nextToken();
-            String question = tokenizer.nextToken();
-            String reponse = tokenizer.nextToken();
+        while (ligne != null){ //On lit le fichier ligne par ligne
+            StringTokenizer tokenizer = new StringTokenizer(ligne,";"); //On découpe la ligne selon le point virgule
+            String type = tokenizer.nextToken(); //on récupère le Type qui le premier champs
+            String question = tokenizer.nextToken();// on récupère la valeur de l'indication
+            String reponse = tokenizer.nextToken(); // on récupère la valeur du mot
             Indication ind;
-            if(type.equals("SYNONYME")) {
+            if(type.equals("SYNONYME")) { // On instancie une indication selon le type
                 ind = new Synonyme(question);
             } else if(type.equals("ANTONYME")){
                 ind = new Antonyme(question);
@@ -39,7 +39,7 @@ public class WordsGenerator {
             }
 
             Mot mot = new Mot(ind,reponse);
-            mot.genererCases();
+            mot.genererCases();    // On sauvgarde le mot dans la mémoir centrale
             this.mots.add(mot);
             ligne = bufferedReader.readLine();
         }
@@ -52,9 +52,9 @@ public class WordsGenerator {
         readWordsFile();
         motsSeance = new HashSet<>();
         Random random = new Random();
-        while (motsSeance.size()<NB_MOTS_SEANCE){
+        while (motsSeance.size()<NB_MOTS_SEANCE){ // Tant que nombre des mots est inferieur à NB_MOT_SEANCE
             int a = abs(random.nextInt());
-            int b = mots.size();
+            int b = mots.size();  // On ajoute un mot aléatoire de la liste des mot tiré du fichier
             int i = a%b;
             motsSeance.add(mots.get(i));
         }

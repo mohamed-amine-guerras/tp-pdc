@@ -28,21 +28,18 @@ public class MultiChance extends Case implements Sanctionnable {
     }
 
     @Override
-    public boolean tentative(char lettre) {
-        nbTentativesRestant--;
-        System.out.println("Reste = "+nbTentativesRestant);
-        if(lettre == getValeur()){
-            setScore(BONUS);
-            setSuceces(true);
+    public void tentative(char lettre) {//Quand le joueur tente une lettre
+        nbTentativesRestant--;//On decrémente le de tentatives restantes
+        if(lettre == getValeur()){//ie. la lettre est correcte
+            setScore(BONUS);//La case à comme score le bonus
+            setSuceces(true);//La case se termine avec suces
             setFail(false);
-        }else if(nbTentativesRestant == 0){
-            setFail(true);
-            this.malus = this.MALUS;
+        }else if(nbTentativesRestant == 0){//Si le joueur echoue dans toutes ses tentatives
+            setFail(true);// il echoue la case
+            this.malus = this.MALUS; //la case retourne un malus
         }else{
             this.malus = this.MALUS;
         }
-        System.out.println(isSuceces());
-        return isFail();
     }
 
     @Override
