@@ -18,6 +18,7 @@ import javafx.scene.layout.StackPane;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static gui.HomeController.getWordsFilePath;
 import static gui.MainApp.*;
 
 
@@ -91,7 +92,7 @@ public class UserLoginController implements Controller {
             try {
                 boolean exist = pendu.LoginCheck(pseudonyme);
                 if (exist){
-                    WordsGenerator generator = new WordsGenerator();
+                    WordsGenerator generator = new WordsGenerator(getWordsFilePath());
                     try {
                         generator.genererListeMotsSeance();
                         pendu.StartSession(pendu.getPlayer(pseudonyme),generator.getMotsSeance());

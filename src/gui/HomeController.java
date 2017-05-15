@@ -31,6 +31,9 @@ public class HomeController implements Initializable {
     private static Pendu pendu = new Pendu(usersFilePath);
     private GridPane gridPane;
 
+    public static String getWordsFilePath() {
+        return wordsFilePath;
+    }
 
     public static Pendu getPendu() {
         return pendu;
@@ -74,7 +77,7 @@ public class HomeController implements Initializable {
             gridPane.add(parent,0,1);
         } catch (IOException e) {
             e.printStackTrace();
-        }
+          }
         }
 
 

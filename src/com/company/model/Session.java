@@ -17,6 +17,10 @@ public class Session extends Observable {
     private int nombreEchecsActuel;
     private ArrayList<Observer> observers = new ArrayList<>();
 
+    public int getNombreEchecsActuel() {
+        return nombreEchecsActuel;
+    }
+
     public Player getPlayer() {
         return player;
     }

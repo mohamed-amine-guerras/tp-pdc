@@ -4,7 +4,6 @@ import com.company.model.Pendu;
 import com.company.model.Player;
 import com.company.model.Session;
 import com.company.model.mots.Mot;
-import com.company.model.mots.WordsGenerator;
 import com.company.model.mots.cases.Case;
 import com.company.model.mots.cases.MultiChance;
 import com.company.model.mots.cases.Proposition;
@@ -12,13 +11,14 @@ import com.company.model.mots.cases.ZeroChance;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXNodesList;
-import javafx.event.Event;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,15 +26,13 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
 import static gui.HomeController.getPendu;
-import static gui.MainApp.CONFIRMATION_DIALOG_BOX;
-import static gui.MainApp.SESSION_VIEW;
+import static gui.MainApp.*;
 
 /**
  * Created by hamza on 08/05/2017.
@@ -47,12 +45,20 @@ public class SessionViewController  implements Controller,Observer,Initializable
     private Session session;
     private GridPane gridPane1;
     private String[] imagePathes = {"resources/img/1.png","resources/img/2.png","resources/img/3.png",
-            "resources/img/4.png","resources/img/5.png","resources/img/6.png"};
+            "resources/img/4.png","resources/img/5.png","resources/img/6.png","resources/img/7.png"};
     private int image = 0;
+
     public void setGridPane1(GridPane gridPane1) {
         this.gridPane1 = gridPane1;
     }
 
+
+
+    @FXML
+    private JFXButton previousButton;
+
+    @FXML
+    private ImageView imageView;
     @FXML
     private GridPane gridPane;
 
@@ -84,11 +90,46 @@ public class SessionViewController  implements Controller,Observer,Initializable
     @FXML AnchorPane anchorPane;
 
     @FXML
-    ImageView imageView;
+    private JFXButton homeButton;
+
+    @FXML
+    private Label highScoreLabel;
+
     private ArrayList<JFXDialog> dialogs = new ArrayList<>();
 
     public void setPendu(Pendu pendu) {
         this.pendu = pendu;
+    }
+
+
+
+
+    @FXML
+    void onHomeButton(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(Home));
+        try {
+            Parent parent = loader.load();
+            ((HomeController)loader.getController()).setGridPane(gridPane1);
+            gridPane1.add(parent,0,1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void onPreviousButton(ActionEvent event) {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(NEW_SESSION));
+        try {
+            Parent parent = loader.load();
+            ((Controller) loader.getController()).setPendu(pendu);
+            ((UserLoginController)loader.getController()).setGridPane(gridPane1);
+            gridPane1.add(parent,0,1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -96,14 +137,15 @@ public class SessionViewController  implements Controller,Observer,Initializable
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(SESSION_VIEW));
         boxesContainer.getStylesheets().add("resources/fxml/boxesStyles.css");
-
         pendu = getPendu();
         session = pendu.getSessionActuel();
+        showDialogBox("Bienvenue","Bienvenue dans le jeu "+session.getPlayer().getPseudonyme());
         pendu.addObserver(this);
         session.getPlayer().addObserver(this);
         ((Observable)session).addObserver(this);
         pseudonymeLabel.setText(session.getPlayer().getPseudonyme());
         scoreLabel.setText("0");
+        highScoreLabel.setText(String.valueOf(session.getPlayer().getMeilleureScore()));
         updateWord();
     }
 
@@ -182,7 +224,6 @@ public class SessionViewController  implements Controller,Observer,Initializable
                 propositions.addAnimatedNode(button);
 
                 button.setOnAction(e->{
-                    button.setId("on-action");
                     propositions.animateList();
                 });
                 for(Character c : ((Proposition)box).getProposition()){
@@ -201,7 +242,7 @@ public class SessionViewController  implements Controller,Observer,Initializable
                     propositions.addAnimatedNode(prop);
                 }
                 vBox.getChildren().add(propositions);
-                vBox.setAlignment(Pos.TOP_CENTER);
+                vBox.setAlignment(Pos.CENTER);
                 propositions.setSpacing(6);
                 boxesContainer.getChildren().add(vBox);
             }
@@ -234,15 +275,33 @@ public class SessionViewController  implements Controller,Observer,Initializable
         if (o instanceof Player) {
             scoreLabel.setText(String.valueOf((int)arg));
         } else if (o instanceof Session){
+            if(mot.isCorrect()){
+                showDialogBox("BRAVO !","Mot terminé avec succes");
+            }else{
+                showDialogBox("DOMMAGE !","Le mot correct est : "+mot.getValeur()+
+                        "\nil vous reste "+((pendu.getSessionActuel().getNombreEchecsActuel() < 5)
+                        ? (6-pendu.getSessionActuel().getNombreEchecsActuel())+" tentatives" : "une seule tentative"));
+                draw();
+            }
             updateWord();
         }else if(o instanceof Pendu) {
-            showDialogBox("Fin de session","La session est terminé");
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(END_SESSION));
+            try {
+                Parent parent = loader.load();
+                ((EndSessionController)loader.getController()).setGridPane(gridPane1);
+                ((EndSessionController)loader.getController()).setImageView(((image > 0) ? imagePathes[image-1] : imagePathes[6]));
+                ((Controller)loader.getController()).setPendu(pendu);
+                ((EndSessionController)loader.getController()).setScore(scoreLabel.getText());
+                gridPane1.add(parent,0,1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }else if(o instanceof Mot){
             if((boolean)arg){
-                showDialogBox("BRAVO !","Mot terminé avec succes");
+
             }else if(!(boolean)arg){
-                showDialogBox("DOMMAGE !","Le mot correct est : "+((Mot)o).getValeur());
-                draw();
+
             }
         }
     }
@@ -252,6 +311,7 @@ public class SessionViewController  implements Controller,Observer,Initializable
         this.image++;
         imageView.setImage(image);
     }
+
     private void updateWord(){
         mot = session.getMotActuel();
         mot.addObserver(this);

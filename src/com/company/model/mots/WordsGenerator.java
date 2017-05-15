@@ -10,15 +10,19 @@ import static java.lang.Math.abs;
  */
 public class WordsGenerator {
 
-
+    private String wordsFilePath;
     private ArrayList<Mot> mots = new ArrayList<>();
     private HashSet<Mot> motsSeance =  new HashSet<>();
     private final int NB_MOTS_SEANCE = 10;
+
+    public WordsGenerator(String wordsFilePath) {
+        this.wordsFilePath = wordsFilePath;
+    }
     /*
     * Récupérer la liste de touts les mots à partir du fichier
      */
     private void readWordsFile() throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new FileReader("mots.poo"));
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(wordsFilePath));
         String ligne = bufferedReader.readLine();
         while (ligne != null){
             StringTokenizer tokenizer = new StringTokenizer(ligne,";");

@@ -20,9 +20,9 @@ public class MainApp extends Application {
     static final String HIGH_SCORES = "/resources/fxml/HighScoresView.fxml";
     static final String OPTIONS = "/resources/fxml/OptionsView.fxml";
     static final String SESSION_VIEW = "/resources/fxml/SessionView.fxml";
+    static final String END_SESSION = "/resources/fxml/EndSessionView.fxml";
 
 
-    private Stage primary;
     public static void main(String[] args) {
         launch(args);
     }
@@ -34,8 +34,8 @@ public class MainApp extends Application {
         Parent home = loader.load();
         JFXDecorator decorator = new JFXDecorator(primaryStage,home);
         primaryStage.setTitle("Le Pendu");
-        primaryStage.setScene(new Scene(decorator, 600, 500));
-        primary = primaryStage;
+        primaryStage.setScene(new Scene(decorator, 800, 700));
+        primaryStage.setResizable(false);
         primaryStage.show();
 
     }
