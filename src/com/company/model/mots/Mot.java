@@ -12,7 +12,7 @@ import static java.lang.Math.abs;
 /**
  * Created by Amine on 17/04/2017.
  */
-public class Mot extends Observable{
+public class Mot{
 
     private final int NB_CASES_SANCTION = 5;
     private final int NB_CASES_LIMITES = 3;
@@ -124,8 +124,6 @@ public class Mot extends Observable{
         stop = ensemblesCases.get(index).isFail();//On s'arrete si le joueur échoue
         if (stop) {
             correct = false;
-            System.out.println("Case fausse");
-            notifyObservers();
         }
         if (box.isSuceces()) nbSuccess++;// si le joueur entre le bon carractère on incrémente le nombre de succes
         System.out.println("nbSuccess = " + nbSuccess);
@@ -133,7 +131,6 @@ public class Mot extends Observable{
             motTerminee = true; // donc le mot est terminé
             System.out.println("Mot termine");
             correct = true;
-            notifyObservers();
             stop = true; // le joueur ne peut pas continuer
         }
         updateScore(box);
@@ -166,20 +163,4 @@ public class Mot extends Observable{
         return indication;
     }
 
-    @Override
-    public synchronized void addObserver(Observer o) {
-        observers.add(o);
-    }
-
-    @Override
-    public synchronized void deleteObserver(Observer o) {
-        super.deleteObserver(o);
-    }
-
-    @Override
-    public void notifyObservers() {
-        for (Observer o : observers){
-            o.update((Observable) this,correct);
-        }
-    }
 }

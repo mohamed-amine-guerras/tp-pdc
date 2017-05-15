@@ -221,21 +221,21 @@ public class SessionViewController  implements Controller,Observer,Initializable
 
 
             else {
-                VBox vBox = new VBox();
+                VBox vBox = new VBox();// Destiné à contenir les propositons
                 vBox.getStyleClass().clear();
                 vBox.getStylesheets().add("resources/fxml/boxesStyles.css");
                 button.setId("proposition");
-                JFXNodesList propositions = new JFXNodesList();
+                JFXNodesList propositions = new JFXNodesList(); // On met les proposirions dans une NodeList
                 propositions.getStylesheets().add("resources/fxml/boxesStyles.css");
-                propositions.addAnimatedNode(button);
+                propositions.addAnimatedNode(button);// On ajoute le boutton principale au NodeList
 
-                button.setOnAction(e->{
+                button.setOnAction(e->{// Au click on tourne l'animation du NodeList
                     propositions.animateList();
                 });
-                for(Character c : ((Proposition)box).getProposition()){
-                    JFXButton prop = new JFXButton(String.valueOf(c).toUpperCase());
+                for(Character c : ((Proposition)box).getProposition()){ // Pour chaque proposition
+                    JFXButton prop = new JFXButton(String.valueOf(c).toUpperCase()); //On affiche sur le boutton de proposition la propostion
 
-                    prop.setOnAction(e->{
+                    prop.setOnAction(e->{// Voir ZeroChance
                         button.setText(prop.getText());
                         button.setId("proposition");
                         propositions.animateList();
@@ -247,7 +247,7 @@ public class SessionViewController  implements Controller,Observer,Initializable
                     prop.setId("proposition");
                     propositions.addAnimatedNode(prop);
                 }
-                vBox.getChildren().add(propositions);
+                vBox.getChildren().add(propositions); // On ajoute le boutton de proposition au NodeList
                 vBox.setAlignment(Pos.CENTER);
                 propositions.setSpacing(6);
                 boxesContainer.getChildren().add(vBox);
@@ -278,20 +278,20 @@ public class SessionViewController  implements Controller,Observer,Initializable
 
     @Override
     public void update(Observable o, Object arg) {
-        if (o instanceof Player) {
-            scoreLabel.setText(String.valueOf((int)arg));
-        } else if (o instanceof Session){
-            if(mot.isCorrect()){
+        if (o instanceof Player) {// A la notification d'un Player
+            scoreLabel.setText(String.valueOf((int)arg)); // On actualise le score
+        } else if (o instanceof Session){ // A la notification d'une Session
+            if(mot.isCorrect()){ // On affiche l'état du mot avec correction eventuelle
                 showDialogBox("BRAVO !","Mot terminé avec succes");
             }else{
                 showDialogBox("DOMMAGE !","Le mot correct est : "+mot.getValeur()+
                         "\nil vous reste "+((pendu.getSessionActuel().getNombreEchecsActuel() < 5)
                         ? (6-pendu.getSessionActuel().getNombreEchecsActuel())+" tentatives" : "une seule tentative"));
-                draw();
+                draw();// On decine le pendue
             }
-            updateWord();
-        }else if(o instanceof Pendu) {
-            FXMLLoader loader = new FXMLLoader();
+            updateWord();// On met à  jours le mot
+        }else if(o instanceof Pendu) { // A la notification d'un Objet Pendu
+            FXMLLoader loader = new FXMLLoader(); // On termine la session
             loader.setLocation(getClass().getResource(END_SESSION));
             try {
                 Parent parent = loader.load();
@@ -303,24 +303,20 @@ public class SessionViewController  implements Controller,Observer,Initializable
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }else if(o instanceof Mot){
-            if((boolean)arg){
-
-            }else if(!(boolean)arg){
-
-            }
         }
     }
 
+    /**
+     * Dessiner le pendu
+     */
     private void draw(){
         Image image = new Image(imagePathes[this.image]);
-        this.image++;
+        this.image++; // On affiche l'image d'indice @field image
         imageView.setImage(image);
     }
 
     private void updateWord(){
         mot = session.getMotActuel();
-        mot.addObserver(this);
         indecationValueLable.setText(mot.getIndication().getValeur());
         indecationTypeLabel.setText(mot.getIndication().toString());
         genererCases();
