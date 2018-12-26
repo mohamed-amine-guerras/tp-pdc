@@ -2,13 +2,11 @@ package gui;
 
 import com.company.model.Pendu;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDecorator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -16,11 +14,8 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.TreeMap;
 
-import static gui.MainApp.HIGH_SCORES;
-import static gui.MainApp.NEW_SESSION;
-import static gui.MainApp.OPTIONS;
+import static gui.MainApp.*;
 
 /**
  * Created by Amine on 04/05/2017.
@@ -28,7 +23,7 @@ import static gui.MainApp.OPTIONS;
 public class HomeController implements Initializable {
     private static String usersFilePath = "users.dat";
     private static String wordsFilePath = null;
-    private static Pendu pendu = new Pendu(usersFilePath);
+    private static Pendu pendu ;
     private GridPane gridPane;
 
     public static String getWordsFilePath() {
@@ -160,6 +155,7 @@ public class HomeController implements Initializable {
             objectInputStream = new ObjectInputStream(new FileInputStream(new File("wordsPath.dat")));
             wordsFilePath = (String) objectInputStream.readObject();
             objectInputStream.close();
+            pendu =  new Pendu(usersFilePath, wordsFilePath) ;
         } catch (IOException|ClassNotFoundException e) {
             e.printStackTrace();
         }

@@ -1,7 +1,6 @@
 package gui;
 
 import com.company.model.Pendu;
-import com.company.model.mots.WordsGenerator;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,7 +13,6 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 
-import static gui.HomeController.getWordsFilePath;
 import static gui.MainApp.Home;
 import static gui.MainApp.SESSION_VIEW;
 
@@ -60,10 +58,8 @@ public class EndSessionController implements Controller {
      */
     @FXML
     void onReplayButton(ActionEvent event) {
-        WordsGenerator generator = new WordsGenerator(getWordsFilePath());
         try {
-            generator.genererListeMotsSeance();
-            pendu.StartSession(pendu.getSessionActuel().getPlayer(), generator.getMotsSeance());
+            pendu.StartSession();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource(SESSION_VIEW));
             Parent parent = loader.load();

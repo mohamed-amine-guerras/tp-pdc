@@ -1,5 +1,7 @@
 package com.company.model.mots;
 
+import com.company.model.IWordsGenerator;
+
 import java.io.*;
 import java.util.*;
 
@@ -8,7 +10,7 @@ import static java.lang.Math.abs;
 /**
  * Created by Amine on 17/04/2017.
  */
-public class WordsGenerator {
+public class WordsGenerator implements IWordsGenerator {
 
     private String wordsFilePath;
     private ArrayList<Mot> mots = new ArrayList<>();
@@ -60,7 +62,7 @@ public class WordsGenerator {
         }
     }
 
-
+    @Override
     public HashSet<Mot> getMotsSeance() {
         return motsSeance;
     }

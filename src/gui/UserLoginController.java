@@ -2,8 +2,6 @@ package gui;
 
 import com.company.model.LoginNotFoundException;
 import com.company.model.Pendu;
-import com.company.model.Session;
-import com.company.model.mots.WordsGenerator;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXTextField;
@@ -18,7 +16,6 @@ import javafx.scene.layout.StackPane;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static gui.HomeController.getWordsFilePath;
 import static gui.MainApp.*;
 
 
@@ -100,10 +97,8 @@ public class UserLoginController implements Controller {
             try {
                 boolean exist = pendu.LoginCheck(pseudonyme);
                 if (exist){
-                    WordsGenerator generator = new WordsGenerator(getWordsFilePath());
                     try {
-                        generator.genererListeMotsSeance();
-                        pendu.StartSession(pendu.getPlayer(pseudonyme),generator.getMotsSeance());
+                        pendu.StartSession();
                         FXMLLoader loader = new FXMLLoader();
                         loader.setLocation(getClass().getResource(SESSION_VIEW));
                         Parent parent = loader.load();

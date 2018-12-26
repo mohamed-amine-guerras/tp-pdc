@@ -3,7 +3,6 @@ package gui;
 import com.company.model.IllegalNicknameException;
 import com.company.model.Pendu;
 import com.company.model.Player;
-import com.company.model.mots.WordsGenerator;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,7 +12,6 @@ import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
 
-import static gui.HomeController.getWordsFilePath;
 import static gui.MainApp.SESSION_VIEW;
 
 /**
@@ -51,12 +49,10 @@ public class UserCreationController {
         }
         else {
             try {
-                pendu.AddPlayer(new Player(pseudonyme));
+                pendu.AddPlayer(pseudonyme);
                 userLoginController.hideAll();
-                WordsGenerator generator = new WordsGenerator(getWordsFilePath());
                 try {
-                    generator.genererListeMotsSeance();
-                    pendu.StartSession(new Player(pseudonyme), generator.getMotsSeance());
+                    pendu.StartSession();
                     FXMLLoader loader = new FXMLLoader();
                     loader.setLocation(getClass().getResource(SESSION_VIEW));
                     Parent parent = loader.load();

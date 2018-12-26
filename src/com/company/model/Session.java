@@ -25,7 +25,7 @@ public class Session extends Observable {
         return player;
     }
 
-    public Session(Player player, HashSet<Mot> mots) {
+    public Session(Player player ,HashSet<Mot> mots) {
         this.player = player;
         this.mots = mots;
         this.iterator = mots.iterator();
@@ -34,6 +34,7 @@ public class Session extends Observable {
         this.nombreEchecsActuel = 0 ;
 
     }
+
 
     public ArrayList<Integer> getScores(){
         return player.getScores();

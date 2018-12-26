@@ -1,9 +1,12 @@
 package com.company.model;
 
-import com.company.model.mots.Mot;
+import com.company.model.mots.WordsGenerator;
 
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by Amine on 17/04/2017.
@@ -12,15 +15,15 @@ public class Pendu extends Observable{
     private Session sessionActuel;
     private String UsersFilePath; /**le fichier contenant les utilisateurs*/
     private String highScoresFilePath = "highScors.dat"; /** le fichier contenant les meilleures scores*/
+    private String wordsFilePath;
     private HighScoresManager highScoresManager;
     private ArrayList<Observer> observers = new ArrayList<>();
+    private Player player;
 
-    public Pendu(String usersFilePath) {
+    public Pendu(String usersFilePath, String wordsFilePath) {
         UsersFilePath = usersFilePath;
+        this.wordsFilePath = wordsFilePath;
         highScoresManager = new HighScoresManager(highScoresFilePath);
-    }
-    public Player getPlayer(String pseudonyme){
-        return new LoginChecker(UsersFilePath).getPlayer(pseudonyme);
     }
     public Session getSessionActuel() {return sessionActuel;}
 
@@ -49,17 +52,20 @@ public class Pendu extends Observable{
     public boolean LoginCheck(String pseudonyme) throws LoginNotFoundException, IOException, ClassNotFoundException {
         LoginChecker loginChecker = new LoginChecker(UsersFilePath);
         if (!loginChecker.Find(pseudonyme)) throw new LoginNotFoundException("Ce pseudonyme n'existent pas");
+        player = loginChecker.getPlayer(pseudonyme);
         return true;
     }
 
     /**
      * Ajoute un nouveau joueur au jeu
-     * @param player
+     * @param pseudonyme
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    public void AddPlayer(Player player) throws IOException, ClassNotFoundException, IllegalNicknameException {
+    public void AddPlayer(String pseudonyme) throws IOException, ClassNotFoundException, IllegalNicknameException {
+        player = new Player(pseudonyme);
         new LoginChecker(UsersFilePath).AddPlayer(player);
+
     }
     /**
      * Vérifie si le caractère écrit par l'utilisateur est correcte ou pas
@@ -76,11 +82,17 @@ public class Pendu extends Observable{
 
     /**
      * Commence une nouvelle session du jeu pour un joueur donné
-     * @param player
-     * @param mots
+     *
      */
-    public void StartSession(Player player, HashSet<Mot> mots){
-        sessionActuel = new Session(player,mots);
+    public void StartSession( ){
+        WordsGenerator generator = new WordsGenerator(wordsFilePath);
+        try {
+            generator.genererListeMotsSeance();
+            sessionActuel = new Session(player, generator.getMotsSeance());
+        } catch (IOException e) {
+
+        }
+
     }
 
     /**
@@ -89,16 +101,6 @@ public class Pendu extends Observable{
     public void EndSession(){
         addHighScores();
         notifyObservers();
-        try {
-            AddPlayer(sessionActuel.getPlayer());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IllegalNicknameException e) {
-            e.printStackTrace();
-        }
 
     }
 
@@ -128,7 +130,7 @@ public class Pendu extends Observable{
     @Override
     public void notifyObservers() {
         for (Observer o : observers){
-            o.update((Observable) this,sessionActuel.isSessionTerminee());
+            o.update( this,sessionActuel.isSessionTerminee());
         }
     }
 }
