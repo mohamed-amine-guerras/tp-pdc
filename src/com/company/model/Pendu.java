@@ -11,7 +11,6 @@ import java.util.*;
 public class Pendu extends Observable{
     private Session sessionActuel;
     private  String UsersFilePath; /**le fichier contenant les utilisateurs*/
-    private boolean sessionTerminee;
     private String highScoresFilePath = "highScors.dat"; /** le fichier contenant les meilleures scores*/
     private TreeMap<Integer,String> highScores;
     private ArrayList<Observer> observers = new ArrayList<>();
@@ -24,7 +23,7 @@ public class Pendu extends Observable{
     }
     public Session getSessionActuel() {return sessionActuel;}
     public boolean isSessionTerminee() {
-        return sessionTerminee;
+        return sessionActuel.isSessionTerminee();
     }
 
 
@@ -91,7 +90,6 @@ public class Pendu extends Observable{
      * Termine la session en cours et sauvegarde les scores
      */
     public void EndSession(){
-        sessionTerminee = true;
         addHighScores();
         notifyObservers();
         try {
@@ -164,7 +162,7 @@ public class Pendu extends Observable{
     @Override
     public void notifyObservers() {
         for (Observer o : observers){
-            o.update((Observable) this,sessionTerminee);
+            o.update((Observable) this,sessionActuel.isSessionTerminee());
         }
     }
 }
