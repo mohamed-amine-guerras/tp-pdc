@@ -1,6 +1,5 @@
 package gui;
 
-import com.company.model.Pendu;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
@@ -81,7 +80,7 @@ public class HighScoresController implements Initializable{
         /**
          * On importe les meilleures scores depuis la classe Pendu
          * */
-        NavigableMap<Integer, String> treeMap = getPendu().getHighScores();
+        NavigableMap<Integer, String> treeMap = (NavigableMap<Integer, String>) getPendu().getHighScores();
         ObservableList<Score> Scores = FXCollections.observableArrayList();
         if(treeMap != null && !treeMap.isEmpty()){
             Iterator<Map.Entry<Integer,String>> iterator = treeMap.descendingMap().entrySet().iterator();

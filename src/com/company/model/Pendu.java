@@ -10,21 +10,19 @@ import java.util.*;
  */
 public class Pendu extends Observable{
     private Session sessionActuel;
-    private  String UsersFilePath; /**le fichier contenant les utilisateurs*/
+    private String UsersFilePath; /**le fichier contenant les utilisateurs*/
     private String highScoresFilePath = "highScors.dat"; /** le fichier contenant les meilleures scores*/
-    private TreeMap<Integer,String> highScores;
+    private HighScoresManager highScoresManager;
     private ArrayList<Observer> observers = new ArrayList<>();
 
     public Pendu(String usersFilePath) {
         UsersFilePath = usersFilePath;
+        highScoresManager = new HighScoresManager(highScoresFilePath);
     }
     public Player getPlayer(String pseudonyme){
         return new LoginChecker(UsersFilePath).getPlayer(pseudonyme);
     }
     public Session getSessionActuel() {return sessionActuel;}
-    public boolean isSessionTerminee() {
-        return sessionActuel.isSessionTerminee();
-    }
 
 
 
@@ -33,9 +31,8 @@ public class Pendu extends Observable{
      * Récupère les meilleurs scores depuis le fichier des meilleurs scores
      * @return TreeMap<Integer, String>
      */
-    public TreeMap<Integer, String> getHighScores() {
-        InitializeHighScores();
-        return highScores;
+    public Map<Integer, String> getHighScores() {
+        return highScoresManager.getHighScores();
     }
 
 
@@ -107,43 +104,12 @@ public class Pendu extends Observable{
 
 
     /**
-     * Récupère les meilleurs scores depuis le fichier
-     */
-    public void InitializeHighScores(){
-        try {
-            ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(new File(highScoresFilePath)));
-            highScores = (TreeMap<Integer, String>) objectInputStream.readObject();
-            objectInputStream.close();
-        } catch (IOException|ClassNotFoundException e) {
-            highScores = null;
-        }
-    }
-
-    /**
-     * Sauvegarde les meilleurs scores dans le fichier des meilleurs scores
-     */
-    public void storeHighScores(){
-        try {
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(new File(highScoresFilePath)));
-            objectOutputStream.writeObject(highScores);
-            objectOutputStream.close();
-        } catch (IOException e) {
-
-        }
-    }
-
-    /**
      * Mis à jour les meilleurs scores et les sauvegarde
      */
     public void addHighScores(){
         ArrayList<Integer> scores = sessionActuel.getScores();
         String player = sessionActuel.getPlayer().getPseudonyme();
-        InitializeHighScores();
-        if (highScores == null) highScores = new TreeMap<>();
-        for (int i :scores){
-            highScores.put(i,player);
-        }
-        storeHighScores();
+        highScoresManager.addHighScores(player,scores);
     }
 
     /** Des méthodes de notification (principalement utilisées avec l'interface)*/
