@@ -1,4 +1,4 @@
-package gui;
+package controller;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -12,8 +12,8 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.IOException;
 
-import static gui.HomeController.setWordsFilePath;
-import static gui.MainApp.Home;
+import static controller.HomeController.setWordsFilePath;
+import static controller.MainApp.Home;
 
 /**
  * Created by Amine on 13/05/2017.

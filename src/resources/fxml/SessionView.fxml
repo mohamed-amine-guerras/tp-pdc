@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-<StackPane id="dash-container" fx:id="stackPane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SessionViewController">
+<StackPane id="dash-container" fx:id="stackPane" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SessionViewController">
    <children>
       <AnchorPane fx:id="anchorPane" prefHeight="477.0" prefWidth="600.0">
          <children>

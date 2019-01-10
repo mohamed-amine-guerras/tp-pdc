@@ -1,4 +1,4 @@
-package gui;
+package controller;
 
 import com.company.model.Pendu;
 import com.jfoenix.controls.JFXButton;
@@ -13,8 +13,8 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 
-import static gui.MainApp.Home;
-import static gui.MainApp.SESSION_VIEW;
+import static controller.MainApp.Home;
+import static controller.MainApp.SESSION_VIEW;
 
 /**
  * Created by Amine on 15/05/2017.

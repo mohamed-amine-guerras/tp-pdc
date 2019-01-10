@@ -1,4 +1,4 @@
-package gui;
+package controller;
 
 import com.company.model.Pendu;
 import com.company.model.Player;
@@ -31,7 +31,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-import static gui.MainApp.*;
+import static controller.MainApp.*;
 
 /**
  * Created by hamza on 08/05/2017.

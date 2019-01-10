@@ -1,4 +1,4 @@
-package gui;
+package controller;
 
 import com.company.model.LoginNotFoundException;
 import com.company.model.Pendu;
@@ -16,7 +16,7 @@ import javafx.scene.layout.StackPane;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static gui.MainApp.*;
+import static controller.MainApp.*;
 
 
 /**

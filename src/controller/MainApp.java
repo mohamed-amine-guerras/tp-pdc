@@ -1,4 +1,4 @@
-package gui;/**
+package controller;/**
  * Created by Amine on 04/05/2017.
  */
 

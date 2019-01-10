@@ -1,8 +1,7 @@
-package gui;
+package controller;
 
 import com.company.model.IllegalNicknameException;
 import com.company.model.Pendu;
-import com.company.model.Player;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,7 +11,7 @@ import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
 
-import static gui.MainApp.SESSION_VIEW;
+import static controller.MainApp.SESSION_VIEW;
 
 /**
  * Created by Amine on 05/05/2017.

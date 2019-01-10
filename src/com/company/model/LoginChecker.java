@@ -6,7 +6,7 @@ import java.util.HashMap;
 /**
  * Created by Amine on 17/04/2017.
  */
-public class LoginChecker {
+public class LoginChecker implements ILoginChecker {
     private String usersFile;
     private HashMap<String,Player> usersHashMap ;
     public LoginChecker(){}

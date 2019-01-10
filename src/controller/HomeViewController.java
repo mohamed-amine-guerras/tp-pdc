@@ -1,4 +1,4 @@
-package gui;
+package controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static gui.MainApp.Home;
+import static controller.MainApp.Home;
 
 /**
  * Created by Amine on 13/05/2017.

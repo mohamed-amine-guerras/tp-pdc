@@ -1,4 +1,4 @@
-package gui;
+package controller;
 
 import com.company.model.Pendu;
 import com.jfoenix.controls.JFXButton;
@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.NavigableMap;
 import java.util.ResourceBundle;
 
-import static gui.MainApp.Home;
+import static controller.MainApp.Home;
 
 
 /**

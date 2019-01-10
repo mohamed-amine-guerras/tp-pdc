@@ -1,4 +1,4 @@
-package gui;
+package controller;
 
 import com.company.model.Pendu;
 import com.jfoenix.controls.JFXButton;
@@ -15,7 +15,7 @@ import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static gui.MainApp.*;
+import static controller.MainApp.*;
 
 /**
  * Created by Amine on 04/05/2017.
