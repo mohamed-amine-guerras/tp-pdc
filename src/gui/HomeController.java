@@ -23,16 +23,13 @@ import static gui.MainApp.*;
 public class HomeController implements Initializable {
     private static String usersFilePath = "users.dat";
     private static String wordsFilePath = null;
-    private static Pendu pendu ;
+    private static Pendu pendu = Pendu.getInstance() ;
     private GridPane gridPane;
 
     public static String getWordsFilePath() {
         return wordsFilePath;
     }
 
-    public static Pendu getPendu() {
-        return pendu;
-    }
 
     public void setGridPane(GridPane gridPane) {
         this.gridPane = gridPane;
@@ -71,7 +68,6 @@ public class HomeController implements Initializable {
         loader.setLocation(getClass().getResource(NEW_SESSION));
         try {
             Parent parent = loader.load();
-            ((Controller) loader.getController()).setPendu(pendu);
             ((UserLoginController)loader.getController()).setGridPane(gridPane);
             gridPane.add(parent,0,1);
         } catch (IOException e) {
@@ -155,7 +151,6 @@ public class HomeController implements Initializable {
             objectInputStream = new ObjectInputStream(new FileInputStream(new File("wordsPath.dat")));
             wordsFilePath = (String) objectInputStream.readObject();
             objectInputStream.close();
-            pendu =  new Pendu(usersFilePath, wordsFilePath) ;
         } catch (IOException|ClassNotFoundException e) {
             e.printStackTrace();
         }

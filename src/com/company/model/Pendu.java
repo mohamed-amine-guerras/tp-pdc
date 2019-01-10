@@ -1,5 +1,6 @@
 package com.company.model;
 
+import com.company.model.mots.Mot;
 import com.company.model.mots.WordsGenerator;
 
 import java.io.IOException;
@@ -20,12 +21,33 @@ public class Pendu extends Observable{
     private ArrayList<Observer> observers = new ArrayList<>();
     private Player player;
 
-    public Pendu(String usersFilePath, String wordsFilePath) {
+
+    private static Pendu instance = new Pendu("users.dat","mots.poo");
+
+    public static Pendu getInstance(){
+        return instance;
+    }
+    private Pendu(String usersFilePath, String wordsFilePath) {
         UsersFilePath = usersFilePath;
         this.wordsFilePath = wordsFilePath;
         highScoresManager = new HighScoresManager(highScoresFilePath);
     }
-    public Session getSessionActuel() {return sessionActuel;}
+
+    public String getPlayerName(){
+        return  player.getPseudonyme();
+    }
+
+    public int getPlayerMeilleureScore(){
+        return player.getMeilleureScore();
+    }
+
+    public int getNombreEchecsActuel(){
+        return sessionActuel.getNombreEchecsActuel();
+    }
+
+    public Mot getMotActuel(){
+        return sessionActuel.getMotActuel();
+    }
 
 
 
@@ -115,6 +137,16 @@ public class Pendu extends Observable{
     }
 
     /** Des méthodes de notification (principalement utilisées avec l'interface)*/
+
+
+    public synchronized void addPlayerObserver(Observer o) {
+
+        sessionActuel.addPlayerObserver(o);
+    }
+
+    public synchronized void addSessionObserver(Observer o) {
+        sessionActuel.addObserver(o);
+    }
 
 
     @Override

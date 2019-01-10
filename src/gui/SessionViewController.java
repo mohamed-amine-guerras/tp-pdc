@@ -31,18 +31,16 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-import static gui.HomeController.getPendu;
 import static gui.MainApp.*;
 
 /**
  * Created by hamza on 08/05/2017.
  */
-public class SessionViewController  implements Controller,Observer,Initializable {
+public class SessionViewController  implements Observer,Initializable {
 
     private MainApp manApp;
     private Mot mot;
-    private Pendu pendu;
-    private Session session;
+    private Pendu pendu = Pendu.getInstance();
     private GridPane gridPane1;
     private String[] imagePathes = {"resources/img/1.png","resources/img/2.png","resources/img/3.png",
             "resources/img/4.png","resources/img/5.png","resources/img/6.png","resources/img/7.png"};
@@ -97,9 +95,6 @@ public class SessionViewController  implements Controller,Observer,Initializable
 
     private ArrayList<JFXDialog> dialogs = new ArrayList<>();
 
-    public void setPendu(Pendu pendu) {
-        this.pendu = pendu;
-    }
 
 
 
@@ -123,7 +118,6 @@ public class SessionViewController  implements Controller,Observer,Initializable
         loader.setLocation(getClass().getResource(NEW_SESSION));
         try {
             Parent parent = loader.load();
-            ((Controller) loader.getController()).setPendu(pendu);
             ((UserLoginController)loader.getController()).setGridPane(gridPane1);
             gridPane1.add(parent,0,1);
         } catch (IOException e) {
@@ -140,15 +134,15 @@ public class SessionViewController  implements Controller,Observer,Initializable
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(SESSION_VIEW));
         boxesContainer.getStylesheets().add("resources/fxml/boxesStyles.css"); // Charger le view
-        pendu = getPendu();// Utiliser l'effet de bord sur l'objet Pendu
-        session = pendu.getSessionActuel(); // Recuperer la session
-        showDialogBox("Bienvenue","Bienvenue dans le jeu "+session.getPlayer().getPseudonyme());
+        pendu = Pendu.getInstance();// Utiliser l'effet de bord sur l'objet Pendu
+        pendu.StartSession();
+        showDialogBox("Bienvenue","Bienvenue dans le jeu "+pendu.getPlayerName());
         pendu.addObserver(this);//Ajouter ce controlleur comme observateur sur l'objet pendu affin d'etre notifié de la fin de la séance
-        session.getPlayer().addObserver(this);//Ajouter ce controlleur comme observateur sur l'objet player affin d'etre notifié du changement du score
-        ((Observable)session).addObserver(this); // Ajouter un observateur sur l'objet seesion afin d'être notifié sur l'état du mot actuel
-        pseudonymeLabel.setText(session.getPlayer().getPseudonyme());
+        pendu.addPlayerObserver(this);//Ajouter ce controlleur comme observateur sur l'objet player affin d'etre notifié du changement du score
+        pendu.addSessionObserver(this); // Ajouter un observateur sur l'objet seesion afin d'être notifié sur l'état du mot actuel
+        pseudonymeLabel.setText(pendu.getPlayerName());
         scoreLabel.setText("0");
-        highScoreLabel.setText(String.valueOf(session.getPlayer().getMeilleureScore()));
+        highScoreLabel.setText(String.valueOf(pendu.getPlayerMeilleureScore()));
         updateWord();// On initailise le mot
     }
 
@@ -285,8 +279,8 @@ public class SessionViewController  implements Controller,Observer,Initializable
                 showDialogBox("BRAVO !","Mot terminé avec succes");
             }else{
                 showDialogBox("DOMMAGE !","Le mot correct est : "+mot.getValeur()+
-                        "\nil vous reste "+((pendu.getSessionActuel().getNombreEchecsActuel() < 5)
-                        ? (6-pendu.getSessionActuel().getNombreEchecsActuel())+" tentatives" : "une seule tentative"));
+                        "\nil vous reste "+((pendu.getNombreEchecsActuel() < 5)
+                        ? (6-pendu.getNombreEchecsActuel())+" tentatives" : "une seule tentative"));
                 draw();// On decine le pendue
             }
             updateWord();// On met à  jours le mot
@@ -297,7 +291,6 @@ public class SessionViewController  implements Controller,Observer,Initializable
                 Parent parent = loader.load();
                 ((EndSessionController)loader.getController()).setGridPane(gridPane1);
                 ((EndSessionController)loader.getController()).setImageView(((image > 0) ? imagePathes[image-1] : imagePathes[6]));
-                ((Controller)loader.getController()).setPendu(pendu);
                 ((EndSessionController)loader.getController()).setScore(scoreLabel.getText());
                 gridPane1.add(parent,0,1);
             } catch (IOException e) {
@@ -316,7 +309,7 @@ public class SessionViewController  implements Controller,Observer,Initializable
     }
 
     private void updateWord(){
-        mot = session.getMotActuel();
+        mot = pendu.getMotActuel();
         indecationValueLable.setText(mot.getIndication().getValeur());
         indecationTypeLabel.setText(mot.getIndication().toString());
         genererCases();

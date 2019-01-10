@@ -83,6 +83,9 @@ public class Session extends Observable {
 
     /** Des méthodes de notification (principalement utilisées avec l'interface)*/
 
+    public synchronized void addPlayerObserver(Observer o) {
+       player.addObserver(o);
+    }
 
     @Override
     public synchronized void addObserver(Observer o) {

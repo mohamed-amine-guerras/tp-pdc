@@ -19,16 +19,13 @@ import static gui.MainApp.SESSION_VIEW;
  */
 public class UserCreationController {
     private UserLoginController userLoginController;
-    private Pendu pendu;
+    private Pendu pendu = Pendu.getInstance();
     private GridPane gridPane;
 
     public void setGridPane(GridPane gridPane) {
         this.gridPane = gridPane;
     }
 
-    public void setPendu(Pendu pendu) {
-        this.pendu = pendu;
-    }
 
     public void setUserLoginController(UserLoginController userLoginController) {
         this.userLoginController = userLoginController;
@@ -56,7 +53,6 @@ public class UserCreationController {
                     FXMLLoader loader = new FXMLLoader();
                     loader.setLocation(getClass().getResource(SESSION_VIEW));
                     Parent parent = loader.load();
-                    ((Controller) loader.getController()).setPendu(pendu);
                     ((SessionViewController) loader.getController()).setGridPane1(gridPane);
                     gridPane.add(parent, 0, 1);
                 } catch (IOException e) {

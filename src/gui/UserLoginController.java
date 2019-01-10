@@ -22,8 +22,8 @@ import static gui.MainApp.*;
 /**
  * Created by Amine on 04/05/2017.
  */
-public class UserLoginController implements Controller {
-    private Pendu pendu;
+public class UserLoginController {
+    private Pendu pendu = Pendu.getInstance();
     private ArrayList<JFXDialog> dialogs = new ArrayList<>();
     private GridPane gridPane;
 
@@ -31,10 +31,6 @@ public class UserLoginController implements Controller {
         this.gridPane = gridPane;
     }
 
-    @Override
-    public void setPendu(Pendu pendu) {
-        this.pendu = pendu;
-    }
 
 
     @FXML
@@ -76,7 +72,6 @@ public class UserLoginController implements Controller {
         ((UserCreationController) loader.getController()).setUserLoginController(this);
         ((UserCreationController)loader.getController()).setGridPane(gridPane);
         dialog.setContent(region);
-        ((UserCreationController)loader.getController()).setPendu(pendu);
         dialog.show(rootStackPane);
 
 
@@ -102,7 +97,6 @@ public class UserLoginController implements Controller {
                         FXMLLoader loader = new FXMLLoader();
                         loader.setLocation(getClass().getResource(SESSION_VIEW));
                         Parent parent = loader.load();
-                        ((Controller) loader.getController()).setPendu(pendu);
                         ((SessionViewController)loader.getController()).setGridPane1(gridPane);
                         gridPane.add(parent,0,1);
                     } catch (IOException e) {
